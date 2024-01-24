@@ -5,15 +5,15 @@
 sudo mdutil -i off -a
 
 #Create new account
-sudo dscl . -create /Users/alone
-sudo dscl . -create /Users/alone UserShell /bin/bash
-sudo dscl . -create /Users/alone RealName "Alone"
-sudo dscl . -create /Users/alone UniqueID 1001
-sudo dscl . -create /Users/alone PrimaryGroupID 80
-sudo dscl . -create /Users/alone NFSHomeDirectory /Users/vncuser
-sudo dscl . -passwd /Users/alone $1
-sudo dscl . -passwd /Users/alone $1
-sudo createhomedir -c -u alone > /dev/null
+sudo dscl . -create /Users/lardex
+sudo dscl . -create /Users/lardex UserShell /bin/bash
+sudo dscl . -create /Users/lardex RealName "LardeX"
+sudo dscl . -create /Users/lardex UniqueID 1001
+sudo dscl . -create /Users/lardex PrimaryGroupID 80
+sudo dscl . -create /Users/lardex NFSHomeDirectory /Users/vncuser
+sudo dscl . -passwd /Users/lardex $1
+sudo dscl . -passwd /Users/lardex $1
+sudo createhomedir -c -u lardex > /dev/null
 
 #Enable VNC
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
@@ -31,4 +31,4 @@ brew install --cask ngrok
 
 #configure ngrok and start it
 ngrok authtoken $3
-ngrok tcp 5900 --region=in &
+ngrok tcp 5900 &
