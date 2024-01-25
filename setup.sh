@@ -44,14 +44,14 @@ then
     brew install git
 fi
 
-# Verifica se Python 3.7 è installato
-if ! command -v python3.7 &> /dev/null
+# Verifica se Python 3.8 è installato
+if ! command -v python3.8 &> /dev/null
 then
-    # Installa Python 3.7 usando brew
-    brew install python@3.7
+    # Installa Python 3.8 usando brew
+    brew install python@3.8
 
-    # Aggiungi il link simbolico a python3.7
-    echo 'export PATH="/usr/local/opt/python@3.7/bin:$PATH"' >> ~/.bash_profile
+    # Aggiungi il link simbolico a python3.8
+    echo 'export PATH="/usr/local/opt/python@3.8/bin:$PATH"' >> ~/.bash_profile
     source ~/.bash_profile
 fi
 
