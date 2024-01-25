@@ -1,26 +1,26 @@
 #Credit: https://github.com/Area69Lab
 #setup.sh VNC_USER_PASSWORD VNC_PASSWORD NGROK_AUTH_TOKEN
 
-
-# This script changes the password of runner to 010206, changes the username from runner to lardex, changes the real name from runner to lardex, and renames all the folders in the home folder from runner to lardex.
-
 # Change the password of runner
 echo "Changing the password of runner..."
-# Use the resetpassword command in recovery mode to change the password without knowing the old one [^1^][1]
-# Alternatively, use the dscl command with the -u and -P options to specify the admin user and password [^2^][2]
-sudo dscl . -u admin -P adminpass -passwd /Users/runner 010206
+# Use the -passwd option of dscl to change the password without knowing the old one [^2^][2]
+sudo dscl . -passwd /Users/runner 010206
 
 # Change the username from runner to lardex
 echo "Changing the username from runner to lardex..."
+# Use the -change option of dscl to modify the RecordName attribute [^3^][3]
 sudo dscl . -change /Users/runner RecordName runner lardex
 
 # Change the real name from runner to lardex
 echo "Changing the real name from runner to lardex..."
+# Use the -change option of dscl to modify the RealName attribute [^3^][3]
 sudo dscl . -change /Users/lardex RealName runner lardex
 
 # Rename the home folder from runner to lardex
 echo "Renaming the home folder from runner to lardex..."
+# Use the mv command to move the home folder to a new location
 sudo mv /Users/runner /Users/lardex
+# Use the -change option of dscl to modify the NFSHomeDirectory attribute [^3^][3]
 sudo dscl . -change /Users/lardex NFSHomeDirectory /Users/runner /Users/lardex
 
 # Rename all the folders in the home folder from runner to lardex
