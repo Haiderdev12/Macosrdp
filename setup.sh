@@ -37,8 +37,6 @@ sudo launchctl load /Library/LaunchDaemons/com.startup.sysctl.plist
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -restart -agent -console
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate
 
-
-
 # Get the display ID using defaults
 sudo defaults read /Library/Preferences/com.apple.windowserver | grep -w "DisplayID" | cut -d " " -f 3 > display_id.txt
 
