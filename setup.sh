@@ -1,35 +1,34 @@
 #Credit: https://github.com/Area69Lab
 #setup.sh VNC_USER_PASSWORD VNC_PASSWORD NGROK_AUTH_TOKEN
 
-# Change the password of runner
-echo "Changing the password of runner..."
-# Use the -passwd option of dscl to change the password without knowing the old one [^2^][2]
-sudo dscl . -passwd /Users/runner 010206
+# Turn off FileVault for runner
+echo "Turning off FileVault for runner..."
+# Use the fdesetup command to disable FileVault 
+sudo fdesetup disable -user runner
+
+# Set up automatic login for runner
+echo "Setting up automatic login for runner..."
+# Use the defaults command to write the loginwindow preferences 
+sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUser runner
+sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUserUID $(id -u runner)
+sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUserScreenLocked 0
 
 # Change the username from runner to lardex
 echo "Changing the username from runner to lardex..."
-# Use the -change option of dscl to modify the RecordName attribute [^3^][3]
+# Use the -change option of dscl to modify the RecordName attribute 
 sudo dscl . -change /Users/runner RecordName runner lardex
 
 # Change the real name from runner to lardex
 echo "Changing the real name from runner to lardex..."
-# Use the -change option of dscl to modify the RealName attribute [^3^][3]
+# Use the -change option of dscl to modify the RealName attribute 
 sudo dscl . -change /Users/lardex RealName runner lardex
 
 # Rename the home folder from runner to lardex
 echo "Renaming the home folder from runner to lardex..."
 # Use the mv command to move the home folder to a new location
 sudo mv /Users/runner /Users/lardex
-# Use the -change option of dscl to modify the NFSHomeDirectory attribute [^3^][3]
+# Use the -change option of dscl to modify the NFSHomeDirectory attribute 
 sudo dscl . -change /Users/lardex NFSHomeDirectory /Users/runner /Users/lardex
-
-# Rename all the folders in the home folder from runner to lardex
-echo "Renaming all the folders in the home folder from runner to lardex..."
-cd /Users/lardex
-for dir in $(find . -type d -name "*runner*"); do
-  newdir=$(echo $dir | sed 's/runner/lardex/g')
-  sudo mv $dir $newdir
-done
 
 #Enable VNC
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
