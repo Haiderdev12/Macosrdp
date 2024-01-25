@@ -1,9 +1,14 @@
 #Credit: https://github.com/Area69Lab
 #setup.sh VNC_USER_PASSWORD VNC_PASSWORD NGROK_AUTH_TOKEN
 
+
+# This script changes the password of runner to 010206, changes the username from runner to lardex, changes the real name from runner to lardex, and renames all the folders in the home folder from runner to lardex.
+
 # Change the password of runner
 echo "Changing the password of runner..."
-echo "010206" | sudo passwd -stdin runner
+# Use the resetpassword command in recovery mode to change the password without knowing the old one [^1^][1]
+# Alternatively, use the dscl command with the -u and -P options to specify the admin user and password [^2^][2]
+sudo dscl . -u admin -P adminpass -passwd /Users/runner 010206
 
 # Change the username from runner to lardex
 echo "Changing the username from runner to lardex..."
