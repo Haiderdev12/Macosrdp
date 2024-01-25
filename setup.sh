@@ -49,6 +49,7 @@ if ! command -v python3.8 &> /dev/null
 then
     # Installa Python 3.8 usando brew
     brew install python@3.8
+    sudo pip install -U pyobjc
 
     # Aggiungi il link simbolico a python3.8
     echo 'export PATH="/usr/local/opt/python@3.8/bin:$PATH"' >> ~/.bash_profile
