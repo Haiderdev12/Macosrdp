@@ -1,8 +1,25 @@
-# Scarica lo script display_manager.py da GitHub
-git clone https://github.com/univ-of-utah-marriott-library-apple/display_manager
+# Disable all animations
+defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
+defaults write -g NSScrollAnimationEnabled -bool false
+defaults write -g NSWindowResizeTime -float 0.001
+defaults write -g QLPanelAnimationDuration -float 0
+defaults write -g NSScrollViewRubberbanding -bool false
+defaults write -g NSDocumentRevisionsWindowTransformAnimation -bool false
+defaults write -g NSToolbarFullScreenAnimationDuration -float 0
+defaults write -g NSBrowserColumnAnimationSpeedMultiplier -float 0
+defaults write com.apple.dock autohide-time-modifier -float 0
+defaults write com.apple.dock autohide-delay -float 0
+defaults write com.apple.dock expose-animation-duration -float 0
+defaults write com.apple.dock springboard-show-duration -float 0
+defaults write com.apple.dock springboard-hide-duration -float 0
+defaults write com.apple.dock springboard-page-duration -float 0
+defaults write com.apple.finder DisableAllAnimations -bool true
+defaults write com.apple.Mail DisableSendAnimations -bool true
+defaults write com.apple.Mail DisableReplyAnimations -bool true
 
-# Entra nella cartella dello script
-cd display_manager
+# Reduce all transparency
+defaults write com.apple.universalaccess reduceTransparency -bool true
 
-# Imposta la risoluzione a 1280x720 (scalata) su tutti gli schermi
-python display_manager.py res 1280 720
+# Restart the Dock and Finder to apply the changes
+killall Dock
+killall Finder
