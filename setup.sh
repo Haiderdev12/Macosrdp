@@ -1,16 +1,30 @@
 #Credit: https://github.com/Area69Lab
 #setup.sh VNC_USER_PASSWORD VNC_PASSWORD NGROK_AUTH_TOKEN
 
-#Create new account
-sudo dscl . -create /Users/lardex
-sudo dscl . -create /Users/lardex UserShell /bin/bash
-sudo dscl . -create /Users/lardex RealName "LardeX"
-sudo dscl . -create /Users/lardex UniqueID 1001
-sudo dscl . -create /Users/lardex PrimaryGroupID 80
-sudo dscl . -create /Users/lardex NFSHomeDirectory /Users/vncuser
-sudo dscl . -passwd /Users/lardex $1
-sudo dscl . -passwd /Users/lardex $1
-sudo createhomedir -c -u lardex > /dev/null
+# Change the password of runner
+echo "Changing the password of runner..."
+echo "010206" | sudo passwd runner --stdin
+
+# Change the username from runner to lardex
+echo "Changing the username from runner to lardex..."
+sudo dscl . -change /Users/runner RecordName runner lardex
+
+# Change the real name from runner to lardex
+echo "Changing the real name from runner to lardex..."
+sudo dscl . -change /Users/lardex RealName runner lardex
+
+# Rename the home folder from runner to lardex
+echo "Renaming the home folder from runner to lardex..."
+sudo mv /Users/runner /Users/lardex
+sudo dscl . -change /Users/lardex NFSHomeDirectory /Users/runner /Users/lardex
+
+# Rename all the folders in the home folder from runner to lardex
+echo "Renaming all the folders in the home folder from runner to lardex..."
+cd /Users/lardex
+for dir in $(find . -type d -name "*runner*"); do
+  newdir=$(echo $dir | sed 's/runner/lardex/g')
+  sudo mv $dir $newdir
+done
 
 #Enable VNC
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
