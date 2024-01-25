@@ -37,24 +37,35 @@ sudo launchctl load /Library/LaunchDaemons/com.startup.sysctl.plist
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -restart -agent -console
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate
 
-# Get the display ID using defaults
-sudo defaults read /Library/Preferences/com.apple.windowserver | grep -w "DisplayID" | cut -d " " -f 3 > display_id.txt
+# Verifica se git è installato
+if ! command -v git &> /dev/null
+then
+    # Installa git usando brew
+    brew install git
+fi
 
-# Read the display ID from the file
-sudo read display_id < display_id.txt
+# Verifica se Python 3.7 è installato
+if ! command -v python3.7 &> /dev/null
+then
+    # Installa Python 3.7 usando brew
+    brew install python@3.7
 
-# Set the resolution using defaults
-sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
-sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionUserData -dict-add $display_id '<dict><key>Width</key><integer>1280</integer><key>Height</key><integer>720</integer></dict>'
+    # Aggiungi il link simbolico a python3.7
+    echo 'export PATH="/usr/local/opt/python@3.7/bin:$PATH"' >> ~/.bash_profile
+    source ~/.bash_profile
+fi
 
-# Delete the temporary file
-sudo rm display_id.txt
+# Verifica la versione di Python
+python --version
 
-# Restart the window server
-sudo killall cfprefsd
-sudo killall Dock
+# Scarica lo script display_manager.py da GitHub
+git clone [^1^][1]
 
-sudo echo "Resolution set to 1280x720 for display ID: $display_id"
+# Entra nella cartella dello script
+cd display_manager
+
+# Imposta la risoluzione a 1280x720 (scalata) su tutti gli schermi
+python display_manager.py -s 1280 720
 
 #install ngrok
 brew install --cask ngrok
