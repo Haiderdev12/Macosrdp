@@ -37,13 +37,6 @@ sudo launchctl load /Library/LaunchDaemons/com.startup.sysctl.plist
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -restart -agent -console
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate
 
-#install ngrok
-brew install --cask ngrok
-
-#configure ngrok and start it
-ngrok authtoken $3
-ngrok tcp 5900 &
-
 #set resolution
 brew tap jakehilborn/jakehilborn && brew install displayplacer
 
@@ -57,4 +50,11 @@ display_id=$(echo "$display_data" | awk '/DisplayID/{print $2; exit}')
 displayplacer "id:$display_id res:1280x720"
 
 echo "Resolution set to 1280x720 for display ID: $display_id"
+
+#install ngrok
+brew install --cask ngrok
+
+#configure ngrok and start it
+ngrok authtoken $3
+ngrok tcp 5900 &
 
