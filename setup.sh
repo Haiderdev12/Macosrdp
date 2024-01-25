@@ -40,16 +40,18 @@ sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resourc
 #set resolution
 brew tap jakehilborn/jakehilborn && brew install displayplacer
 
-# Get the display data
 display_data=$(system_profiler SPDisplaysDataType)
+echo "display_data: $display_data"
 
 # Use awk to parse the output and get the Display ID
 display_id=$(echo "$display_data" | awk '/DisplayID/{print $2; exit}')
+echo "display_id: $display_id"
 
 # Set the resolution using displayplacer
 displayplacer "id:$display_id res:1280x720"
 
 echo "Resolution set to 1280x720 for display ID: $display_id"
+
 
 #install ngrok
 brew install --cask ngrok
