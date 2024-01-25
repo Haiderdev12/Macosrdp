@@ -1,10 +1,6 @@
 #Credit: https://github.com/Area69Lab
 #setup.sh VNC_USER_PASSWORD VNC_PASSWORD NGROK_AUTH_TOKEN
 
-# Turn off FileVault for runner
-echo "Turning off FileVault for runner..."
-# Use the fdesetup command to disable FileVault 
-sudo fdesetup disable -user runner
 
 # Set up automatic login for runner
 echo "Setting up automatic login for runner..."
