@@ -1,9 +1,6 @@
 #Credit: https://github.com/Area69Lab
 #setup.sh VNC_USER_PASSWORD VNC_PASSWORD NGROK_AUTH_TOKEN
 
-#disable spotlight indexing
-sudo mdutil -i off -a
-
 #Create new account
 sudo dscl . -create /Users/lardex
 sudo dscl . -create /Users/lardex UserShell /bin/bash
@@ -36,28 +33,6 @@ sudo launchctl load /Library/LaunchDaemons/com.startup.sysctl.plist
 #Start VNC/reset changes
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -restart -agent -console
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate
-
-# Verifica se git è installato
-if ! command -v git &> /dev/null
-then
-    # Installa git usando brew
-    brew install git
-fi
-
-# Verifica se Python 3.8 è installato
-if ! command -v python3.8 &> /dev/null
-then
-    # Installa Python 3.8 usando brew
-    brew install python@3.8
-    sudo pip install -U pyobjc
-
-    # Aggiungi il link simbolico a python3.8
-    echo 'export PATH="/usr/local/opt/python@3.8/bin:$PATH"' >> ~/.bash_profile
-    source ~/.bash_profile
-fi
-
-# Verifica la versione di Python
-python --version
 
 #install ngrok
 brew install --cask ngrok
