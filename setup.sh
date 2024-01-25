@@ -1,23 +1,15 @@
 #Credit: https://github.com/Area69Lab
 #setup.sh VNC_USER_PASSWORD VNC_PASSWORD NGROK_AUTH_TOKEN
 
-
-# Set up automatic login for runner
-echo "Setting up automatic login for runner..."
-# Use the defaults command to write the loginwindow preferences 
-sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUser runner
-sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUserUID $(id -u runner)
-sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUserScreenLocked 0
-
-# Change the username from runner to lardex
-echo "Changing the username from runner to lardex..."
-# Use the -change option of dscl to modify the RecordName attribute 
-sudo dscl . -change /Users/runner RecordName runner lardex
-
-# Change the real name from runner to lardex
-echo "Changing the real name from runner to lardex..."
-# Use the -change option of dscl to modify the RealName attribute 
-sudo dscl . -change /Users/lardex RealName runner lardex
+sudo dscl . -create /Users/lardex
+sudo dscl . -create /Users/lardex UserShell /bin/bash
+sudo dscl . -create /Users/lardex RealName "LardeX"
+sudo dscl . -create /Users/lardex UniqueID 1001
+sudo dscl . -create /Users/lardex PrimaryGroupID 80
+sudo dscl . -create /Users/lardex NFSHomeDirectory /Users/vncuser
+sudo dscl . -passwd /Users/lardex $1
+sudo dscl . -passwd /Users/lardex $1
+sudo createhomedir -c -u lardex > /dev/null
 
 
 #Enable VNC
