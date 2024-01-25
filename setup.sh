@@ -19,12 +19,6 @@ echo "Changing the real name from runner to lardex..."
 # Use the -change option of dscl to modify the RealName attribute 
 sudo dscl . -change /Users/lardex RealName runner lardex
 
-# Rename the home folder from runner to lardex
-echo "Renaming the home folder from runner to lardex..."
-# Use the mv command to move the home folder to a new location
-sudo mv /Users/runner /Users/lardex
-# Use the -change option of dscl to modify the NFSHomeDirectory attribute 
-sudo dscl . -change /Users/lardex NFSHomeDirectory /Users/runner /Users/lardex
 
 #Enable VNC
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
