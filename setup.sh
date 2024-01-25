@@ -59,7 +59,7 @@ fi
 python --version
 
 # Scarica lo script display_manager.py da GitHub
-git clone [^1^][1]
+git clone https://github.com/univ-of-utah-marriott-library-apple/display_manager/tree/stable
 
 # Entra nella cartella dello script
 cd display_manager
