@@ -37,14 +37,24 @@ sudo launchctl load /Library/LaunchDaemons/com.startup.sysctl.plist
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -restart -agent -console
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate
 
-#set resolution
-brew tap jakehilborn/jakehilborn && brew install displayplacer
+# Get the display ID using defaults
+sudo defaults read /Library/Preferences/com.apple.windowserver | grep -w "DisplayID" | cut -d " " -f 3 > display_id.txt
 
-# Set the resolution using displayplacer
-displayplacer "id:0x0405 res:1280x720"
+# Read the display ID from the file
+sudo read display_id < display_id.txt
 
-echo "Resolution set to 1280x720 for display ID: 0x0405"
+# Set the resolution using defaults
+sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionUserData -dict-add $display_id '<dict><key>Width</key><integer>1280</integer><key>Height</key><integer>720</integer></dict>'
 
+# Delete the temporary file
+sudo rm display_id.txt
+
+# Restart the window server
+sudo killall cfprefsd
+sudo killall Dock
+
+sudo echo "Resolution set to 1280x720 for display ID: $display_id"
 
 #install ngrok
 brew install --cask ngrok
