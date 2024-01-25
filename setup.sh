@@ -3,7 +3,7 @@
 
 # Change the password of runner
 echo "Changing the password of runner..."
-echo "010206" | sudo passwd runner --stdin
+echo "010206" | sudo passwd -stdin runner
 
 # Change the username from runner to lardex
 echo "Changing the username from runner to lardex..."
