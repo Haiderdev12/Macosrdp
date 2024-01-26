@@ -6,7 +6,7 @@ defaults:
     shell: bash
 
 jobs:
-  build: macOS
+  build: 
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2 # use the correct version of the action
