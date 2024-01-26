@@ -40,5 +40,3 @@ brew install --cask ngrok
 ngrok authtoken $3
 ngrok tcp 5900 &
 
-sudo '/Library/Application Support/VMware Tools/vmware-resolutionSet' 1280 768
-
