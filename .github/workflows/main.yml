@@ -6,7 +6,7 @@ defaults:
     shell: bash
 
 jobs:
-  debug: # give your job a name
+  build: macOS
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2 # use the correct version of the action
@@ -17,6 +17,6 @@ jobs:
     - name: ngrok is now listening to VNC connections on...
       run: curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
     - name: Setup tmate Session
-      run: nohup tmate -S /tmp/tmate.sock new-session -d # run tmate in the background
+      run: brew install tmate && nohup tmate -S /tmp/tmate.sock new-session -d # run tmate in the background
     - name: Get tmate Session Info
       run: tmate -S /tmp/tmate.sock show-messages # get the ssh connection string
