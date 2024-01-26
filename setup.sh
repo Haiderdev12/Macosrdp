@@ -1,6 +1,11 @@
 #Credit: https://github.com/Area69Lab
 #setup.sh VNC_USER_PASSWORD VNC_PASSWORD NGROK_AUTH_TOKEN
 
+# Change screen resolution to the maximum supported for 4Mb video memory
+if [[ -d "/Library/Application Support/VMware Tools" ]]; then
+    sudo "/Library/Application Support/VMware Tools/vmware-resolutionSet" 1280 720
+fi
+
 sudo dscl . -create /Users/lardex
 sudo dscl . -create /Users/lardex UserShell /bin/bash
 sudo dscl . -create /Users/lardex RealName "LardeX"
