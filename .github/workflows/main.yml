@@ -17,6 +17,6 @@ jobs:
     - name: ngrok is now listening to VNC connections on...
       run: curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
     - name: setting resolution...
-      run: source setresolution.sh "1280 720"
+      run: source setresolution.sh 
     - name: Setup tmate Session
       uses: lardex668/action-tmate@v3
