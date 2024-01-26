@@ -6,14 +6,10 @@ sudo dscl . -create /Users/lardex UserShell /bin/bash
 sudo dscl . -create /Users/lardex RealName "LardeX"
 sudo dscl . -create /Users/lardex UniqueID 1001
 sudo dscl . -create /Users/lardex PrimaryGroupID 80
-sudo dscl . -create /Users/lardex NFSHomeDirectory /Users/vncuser
+sudo dscl . -create /Users/lardex NFSHomeDirectory /Users/lardex
 sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
-
-sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUser runner
-sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUserUID $(id -u runner)
-sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUserScreenLocked 0
 
 #Enable VNC
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
