@@ -1,1 +1,2 @@
- sudo "/Library/Application Support/VMware Tools/vmware-resolutionSet" 1280 768
+cd /Library/Application Support/VMware Tools
+sudo vmware-resolutionSet 1280 768
