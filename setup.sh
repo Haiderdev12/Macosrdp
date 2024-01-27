@@ -34,6 +34,7 @@ sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resourc
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate
 
 # Install Apache Guacamole
+brew tap jaredledvina/guacamole
 brew install guacamole-server
 
 # Create a directory for Guacamole configuration
