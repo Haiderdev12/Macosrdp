@@ -12,7 +12,7 @@ sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
 git config --global credential.helper store
-echo "https://lardex668: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" > ~/.git-credentials
+echo "https://lardex668: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@github.com" > ~/.git-credentials
 
 
 # Install Apache Guacamole
