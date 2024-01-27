@@ -11,8 +11,9 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
-# upgrade git
-brew upgrade git
+git config --global credential.helper store
+echo "https://lardex668:01022006a-@github.com" > ~/.git-credentials
+
 
 # Install Apache Guacamole
 brew tap jaredledvina/guacamole
