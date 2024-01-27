@@ -11,20 +11,6 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
-#Enable VNC
-sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
-sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -clientopts -setvnclegacy -vnclegacy yes 
-
-#VNC password - http://hints.macworld.com/article.php?story=20071103011608872
-echo $2 | perl -we 'BEGIN { @k = unpack "C*", pack "H*", "1734516E8BA8C5E2FF1C39567390ADCA"}; $_ = <>; chomp; s/^(.{8}).*/$1/; @p = unpack "C*", $_; foreach (@k) { printf "%02X", $_ ^ (shift @p || 0) }; print "\n"' | sudo tee /Library/Preferences/com.apple.VNCSettings.txt
-sudo -u root defaults write /Library/LaunchDaemons/com.startup.sysctl Label com.startup.sysctl
-sudo -u root defaults write /Library/LaunchDaemons/com.startup.sysctl LaunchOnlyOnce -bool true
-sudo -u root defaults write /Library/LaunchDaemons/com.startup.sysctl ProgramArguments -array /usr/sbin/sysctl net.inet.tcp.delayed_ack=0
-sudo -u root defaults write /Library/LaunchDaemons/com.startup.sysctl RunAtLoad -bool true
-
-# Set the permissions and ownership
-sudo chmod 644 /Library/LaunchDaemons/com.startup.sysctl.plist
-sudo chown root:wheel /Library/LaunchDaemons/com.startup.sysctl.plist
 
 # Install Apache Guacamole
 brew tap jaredledvina/guacamole
@@ -72,6 +58,21 @@ curl -L -o guacamole.war https://downloads.apache.org/guacamole/1.5.4/binary/gua
 
 # Deploy Guacamole web application to Tomcat
 cp guacamole.war /usr/local/Cellar/tomcat/9.0.55/libexec/webapps/
+
+#Enable VNC
+sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
+sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -clientopts -setvnclegacy -vnclegacy yes 
+
+#VNC password - http://hints.macworld.com/article.php?story=20071103011608872
+echo $2 | perl -we 'BEGIN { @k = unpack "C*", pack "H*", "1734516E8BA8C5E2FF1C39567390ADCA"}; $_ = <>; chomp; s/^(.{8}).*/$1/; @p = unpack "C*", $_; foreach (@k) { printf "%02X", $_ ^ (shift @p || 0) }; print "\n"' | sudo tee /Library/Preferences/com.apple.VNCSettings.txt
+sudo -u root defaults write /Library/LaunchDaemons/com.startup.sysctl Label com.startup.sysctl
+sudo -u root defaults write /Library/LaunchDaemons/com.startup.sysctl LaunchOnlyOnce -bool true
+sudo -u root defaults write /Library/LaunchDaemons/com.startup.sysctl ProgramArguments -array /usr/sbin/sysctl net.inet.tcp.delayed_ack=0
+sudo -u root defaults write /Library/LaunchDaemons/com.startup.sysctl RunAtLoad -bool true
+
+# Set the permissions and ownership
+sudo chmod 644 /Library/LaunchDaemons/com.startup.sysctl.plist
+sudo chown root:wheel /Library/LaunchDaemons/com.startup.sysctl.plist
 
 # Load the plist file
 sudo launchctl load /Library/LaunchDaemons/com.startup.sysctl.plist
