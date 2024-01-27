@@ -26,13 +26,6 @@ sudo -u root defaults write /Library/LaunchDaemons/com.startup.sysctl RunAtLoad 
 sudo chmod 644 /Library/LaunchDaemons/com.startup.sysctl.plist
 sudo chown root:wheel /Library/LaunchDaemons/com.startup.sysctl.plist
 
-# Load the plist file
-sudo launchctl load /Library/LaunchDaemons/com.startup.sysctl.plist
-
-#Start VNC/reset changes
-sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -restart -agent -console
-sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate
-
 # Install Apache Guacamole
 brew tap jaredledvina/guacamole
 brew install guacamole-server
@@ -71,9 +64,6 @@ sed -i '' 's/lardex/your_username/g' ~/.guacamole/user-mapping.xml
 sed -i '' 's/010206/your_password/g' ~/.guacamole/user-mapping.xml
 sed -i '' 's/010206/your_vnc_password/g' ~/.guacamole/user-mapping.xml
 
-# Start guacd service
-brew services start guacamole-server
-
 # Install Tomcat
 brew install tomcat
 
@@ -82,6 +72,16 @@ curl -L -o guacamole.war https://downloads.apache.org/guacamole/1.5.4/binary/gua
 
 # Deploy Guacamole web application to Tomcat
 cp guacamole.war /usr/local/Cellar/tomcat/9.0.55/libexec/webapps/
+
+# Load the plist file
+sudo launchctl load /Library/LaunchDaemons/com.startup.sysctl.plist
+
+#Start VNC/reset changes
+sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -restart -agent -console
+sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate
+
+# Start guacd service
+brew services start guacamole-server
 
 # Start Tomcat service
 brew services start tomcat
