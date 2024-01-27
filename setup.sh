@@ -33,10 +33,60 @@ sudo launchctl load /Library/LaunchDaemons/com.startup.sysctl.plist
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -restart -agent -console
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate
 
-#install ngrok
-brew install --cask ngrok
+# Install Apache Guacamole
+brew install guacamole-server
 
-#configure ngrok and start it
-ngrok authtoken $3
-ngrok tcp 5900 &
+# Create a directory for Guacamole configuration
+mkdir ~/.guacamole
+
+# Create a guacamole.properties file
+cat > ~/.guacamole/guacamole.properties <<EOF
+# Hostname and port of guacamole proxy
+guacd-hostname: localhost
+guacd-port:     4822
+
+# Auth provider class
+auth-provider: net.sourceforge.guacamole.net.basic.BasicFileAuthenticationProvider
+
+# Properties used by BasicFileAuthenticationProvider
+basic-user-mapping: ~/.guacamole/user-mapping.xml
+EOF
+
+# Create a user-mapping.xml file
+cat > ~/.guacamole/user-mapping.xml <<EOF
+<user-mapping>
+    <!-- Per-user authentication and config information -->
+    <authorize username="USERNAME" password="PASSWORD">
+        <protocol>vnc</protocol>
+        <param name="hostname">localhost</param>
+        <param name="port">5900</param>
+        <param name="password">VNC_PASSWORD</param>
+    </authorize>
+</user-mapping>
+EOF
+
+# Replace USERNAME, PASSWORD and VNC_PASSWORD with your own values
+sed -i '' 's/lardex/your_username/g' ~/.guacamole/user-mapping.xml
+sed -i '' 's/010206/your_password/g' ~/.guacamole/user-mapping.xml
+sed -i '' 's/010206/your_vnc_password/g' ~/.guacamole/user-mapping.xml
+
+# Start guacd service
+brew services start guacamole-server
+
+# Install Tomcat
+brew install tomcat
+
+# Download Guacamole web application
+curl -L -o guacamole.war https://downloads.apache.org/guacamole/1.5.4/binary/guacamole-1.5.4.war
+
+# Deploy Guacamole web application to Tomcat
+cp guacamole.war /usr/local/Cellar/tomcat/9.0.55/libexec/webapps/
+
+# Start Tomcat service
+brew services start tomcat
+
+echo "Access Guacamole web interface at http://localhost:8080/guacamole/"
+# Log in with your username and password
+# Enjoy your VNC connection to your Apple Remote Desktop
+
 
