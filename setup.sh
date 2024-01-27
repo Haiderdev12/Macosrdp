@@ -11,8 +11,8 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
-# git remote 
-git remote set-url origin https://lardex668:01022006a-@github.com/jaredledvina/homebrew-guacamole
+# upgrade git
+brew upgrade git
 
 # Install Apache Guacamole
 brew tap jaredledvina/guacamole
