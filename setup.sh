@@ -15,7 +15,7 @@ sudo createhomedir -c -u lardex > /dev/null
 curl -L -o realvnc.dmg https://www.realvnc.com/download/file/vnc.files/VNC-Server-6.8.1-MacOSX-x86_64.dmg
 
 # Mount the disk image
-sudo hdiutil attach realvnc.dmg
+hdiutil attach realvnc.dmg
 
 # Install the VNC Server and Viewer apps
 sudo installer -pkg /Volumes/VNC\ Server/VNC\ Server.pkg -target /
