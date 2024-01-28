@@ -11,9 +11,25 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
-git config --global credential.helper store
-echo "https://lardex668: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@github.com" > ~/.git-credentials
+# Variables
+SSH_PATH="$HOME/.ssh"
+KEY_PATH="$SSH_PATH/id_ed25519"
+EMAIL="erdripdebologna@gmail.com"
 
+# Create .ssh directory if it doesn't exist
+mkdir -p "$SSH_PATH"
+
+# Generate SSH key
+if [[ ! -f "$KEY_PATH" ]]; then
+    ssh-keygen -t ed25519 -f "$KEY_PATH" -C "$EMAIL" -N '' > /dev/null
+fi
+
+# Start the ssh-agent and load the SSH key
+eval "$(ssh-agent -s)"
+ssh-add "$KEY_PATH"
+
+# Display the public key
+cat "$KEY_PATH.pub"
 
 # Install Apache Guacamole
 brew tap jaredledvina/guacamole
