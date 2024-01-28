@@ -11,7 +11,24 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
-sudo nvram IOPlatformSerialNumber=C01234567890
+# Cambia il board-id
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.Boot.plist "Board-ID" "Mac-551B86E5744E2388"
+
+# Cambia il modello hardware
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "hw.model.reflectHost" "FALSE"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "hw.model" "MacBookPro14,3"
+
+# Cambia il numero di serie
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "serialNumber.reflectHost" "FALSE"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "serialNumber" "C02XXXXXX153"
+
+# Cambia le impostazioni SMBIOS
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "smbios.reflectHost" "FALSE"
+
+# Cambia le variabili EFI NVRAM
+sudo nvram efi.nvram.var.ROM.reflectHost="FALSE"
+sudo nvram efi.nvram.var.ROM="3c0754a2f9be"
+sudo nvram efi.nvram.var.MLB.reflectHost="FALSE"
 
 #Enable VNC
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
