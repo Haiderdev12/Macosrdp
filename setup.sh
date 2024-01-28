@@ -27,7 +27,7 @@ cd ~/guacamole-server-1.5.4
 cd guacamole-server-1.5.4
 
 # Build from Source
-sudo ./configure
+./configure
 sudo make
 sudo make install
 
