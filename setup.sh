@@ -11,10 +11,6 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
-# Cambia il modello hardware
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "hw.model.reflectHost" "FALSE"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "hw.model" "Macmini7,1"
-
 # Cambia il numero di serie
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "serialNumber.reflectHost" "FALSE"
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "serialNumber" "C02V50M5G1J0"
