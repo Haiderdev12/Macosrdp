@@ -27,6 +27,15 @@ export DISPLAY=:0
 echo "Installing FreeRDP..."
 brew install freerdp
 
+# Define the rule
+rule="pass in proto tcp from any to any port 3389"
+
+# Write the rule to a file
+sudo echo "$rule" > /tmp/com.apple.alf.plist
+
+# Load the rule into the firewall
+sudo pfctl -e -f /tmp/com.apple.alf.plist
+
 # Start the FreeRDP server
 echo "Starting the FreeRDP server..."
 xfreerdp /server &
