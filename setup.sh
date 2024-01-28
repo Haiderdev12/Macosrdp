@@ -11,6 +11,8 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
+#!/bin/bash
+
 # Variables
 SSH_PATH="$HOME/.ssh"
 KEY_PATH="$SSH_PATH/id_ed25519"
@@ -19,17 +21,15 @@ EMAIL="erdripdebologna@gmail.com"
 # Create .ssh directory if it doesn't exist
 mkdir -p "$SSH_PATH"
 
-# Generate SSH key
-if [[ ! -f "$KEY_PATH" ]]; then
-    ssh-keygen -t ed25519 -f "$KEY_PATH" -C "$EMAIL" -N '' > /dev/null
-fi
+# Save the private key to a file
+echo $3 > "$KEY_PATH"
 
-# Start the ssh-agent and load the SSH key
+# Ensure the private key file has the correct permissions
+chmod 600 "$KEY_PATH"
+
+# Start the ssh-agent and add the private key
 eval "$(ssh-agent -s)"
 ssh-add "$KEY_PATH"
-
-# Display the public key
-cat "$KEY_PATH.pub"
 
 # Install Apache Guacamole
 brew tap jaredledvina/guacamole
