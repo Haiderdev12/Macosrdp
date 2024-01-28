@@ -11,32 +11,6 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
-#!/bin/bash
-
-# Define the key without the comment
-KEY="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/9bSjV8XnuebBYU9bZGh8mgByO16lKiL06tW2Pm5rA4yJY/bdYjEUwndYtiIO0OIyC1Ola/ws5L6Ixrp6sUt0taXL0ChM06J1hCobFpcmNsSygUY0cNtKwOMrwGzcskUJiqLT0YfW8sLAJ3d36XfwrjY5syMtxWRiC1cJOoEwh82kXUHd1wgTL8HuGzkOfVJKJbcfhMlZQqVrTTKlUUZxTEBBoFjT3A69zd/NRWupdH3jwGoz4FTZoW8gQiP0I4lkyn3YOZzqb+kNHxJjLNIvV9XBmK8tquz7CQ3qUwZ6/Qys+2zvemjJpLMStdxuHJMoWHH8xtJf0tgNcssMETp/xowUOJhfsmMDZnyxLozQghSgxbLBW9mgs5zV+Vu6OTo0W8PIOZTpGxieKUF3acYstMmG3mjT+0qefRpf0S6XAKjDSpHVDz24y6iRj2kTj2/WuwjTO836z51U6n7tQwk2lEPY15Q2/LRW3tellRiDj1AWKzrg2Lq4Oop4Kdt58Zit/A0KCeqO9q23CO08T9UuLFu2V++tEUfeScHlvgKl7qanHw1jqM08681GG5HsfDa/NKFDlxzRmSmUJfYN8xBD4dTZUonrNpi71bvvqrT5d0YVgyzyaaWvlg3Z1h1jqPwn26pR5BYz+wCva0fARgb15vTTRsx0TJrDGQHtvdlbhQ== erdripdebologna@gmail.com"
-
-# Create the .ssh directory if it doesn't exist
-if [ ! -d "/Users/runner/.ssh" ]; then
-  sudo mkdir /Users/runner/.ssh
-  sudo chmod 700 /Users/runner/.ssh
-  sudo chown runner /Users/runner/.ssh
-fi
-
-# Create the authorized_keys file if it doesn't exist
-if [ ! -f "/Users/runner/.ssh/authorized_keys" ]; then
-  sudo touch /Users/runner/.ssh/authorized_keys
-  sudo chmod 600 /Users/runner/.ssh/authorized_keys
-  sudo chown runner /Users/runner/.ssh/authorized_keys
-fi
-
-# Add the key to the ssh directory
-echo $KEY | sudo tee -a /Users/runner/.ssh/authorized_keys
-
-# Start the ssh agent and add the key
-eval "$(ssh-agent -s)"
-ssh-add /Users/runner/.ssh/authorized_keys
-
 # Install Apache Guacamole
 brew tap jaredledvina/guacamole
 brew install guacamole-server
