@@ -11,14 +11,7 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
-# Get the IOPlatformExpertDevice node
-NODE=$(ioreg -l | grep IOPlatformExpertDevice -A 10 | grep IORegistryEntryName | cut -d \" -f 4)
-
-# Modify the IOPlatformSerialNumber property
-sudo ioreg -w 0 -p IODeviceTree -c $NODE -s IOPlatformSerialNumber "C01234567890"
-
-# Verify the change
-ioreg -l | grep IOPlatformSerialNumber
+sudo nvram IOPlatformSerialNumber=C01234567890
 
 #Enable VNC
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
