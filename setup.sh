@@ -11,28 +11,27 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
-# Download the RealVNC Connect setup app
-curl -L -o realvnc.dmg https://www.realvnc.com/download/file/vnc.files/VNC-Server-6.8.1-MacOSX-x86_64.dmg
+#Enable VNC
+sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
+sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -clientopts -setvnclegacy -vnclegacy yes 
 
-# Mount the disk image
-hdiutil attach realvnc.dmg
+#VNC password - http://hints.macworld.com/article.php?story=20071103011608872
+echo $2 | perl -we 'BEGIN { @k = unpack "C*", pack "H*", "1734516E8BA8C5E2FF1C39567390ADCA"}; $_ = <>; chomp; s/^(.{8}).*/$1/; @p = unpack "C*", $_; foreach (@k) { printf "%02X", $_ ^ (shift @p || 0) }; print "\n"' | sudo tee /Library/Preferences/com.apple.VNCSettings.txt
+sudo -u root defaults write /Library/LaunchDaemons/com.startup.sysctl Label com.startup.sysctl
+sudo -u root defaults write /Library/LaunchDaemons/com.startup.sysctl LaunchOnlyOnce -bool true
+sudo -u root defaults write /Library/LaunchDaemons/com.startup.sysctl ProgramArguments -array /usr/sbin/sysctl net.inet.tcp.delayed_ack=0
+sudo -u root defaults write /Library/LaunchDaemons/com.startup.sysctl RunAtLoad -bool true
 
-# Install the VNC Server and Viewer apps
-sudo installer -pkg /Volumes/VNC\ Server/VNC\ Server.pkg -target /
-sudo installer -pkg /Volumes/VNC\ Viewer/VNC\ Viewer.pkg -target /
+# Set the permissions and ownership
+sudo chmod 644 /Library/LaunchDaemons/com.startup.sysctl.plist
+sudo chown root:wheel /Library/LaunchDaemons/com.startup.sysctl.plist
 
-# Unmount the disk image
-hdiutil detach /Volumes/VNC\ Server
-hdiutil detach /Volumes/VNC\ Viewer
+# Load the plist file
+sudo launchctl load /Library/LaunchDaemons/com.startup.sysctl.plist
 
-# Delete the disk image
-rm realvnc.dmg
-
-# Set the VNC password for the user lardex
-sudo -u lardex defaults write com.realvnc.vncserver VNCPassword $(printf "010206" | perl -w -e 'use MIME::Base64; print encode_base64(<STDIN>)')
-
-# Start the VNC Server service
-sudo launchctl load -w /Library/LaunchDaemons/com.realvnc.vncserver.plist
+#Start VNC/reset changes
+sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -restart -agent -console
+sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate
 
 #install ngrok
 brew install --cask ngrok
