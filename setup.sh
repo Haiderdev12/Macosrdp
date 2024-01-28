@@ -11,8 +11,6 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
-#!/bin/bash
-
 # Variables
 SSH_PATH="$HOME/.ssh"
 KEY_PATH="$SSH_PATH/id_ed25519"
