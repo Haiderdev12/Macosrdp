@@ -11,8 +11,21 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
+# Install FreeRDP
+echo "Installing FreeRDP..."
+brew install freerdp
+
+# Start the FreeRDP server
+echo "Starting the FreeRDP server..."
+xfreerdp /server &
+
+#install ngrok
 brew install --cask ngrok
 
+#configure ngrok and start it
+ngrok authtoken $3
 ngrok tcp 3389 &
+
+
 
 
