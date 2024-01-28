@@ -11,7 +11,7 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
-ifconfig en1 | awk '/ether/ {print $2}'
+ifconfig en0 | awk '/ether/ {print $2}'
 
 #Enable VNC
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
