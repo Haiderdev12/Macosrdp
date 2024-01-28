@@ -13,6 +13,6 @@ jobs:
     - name: Setting the Environment Up.
       env:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-      run: source setup.sh "010206" "010206" "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO7ZzO3l6qf2oLUGga7Ctdfg6GB7oWUYxde733McNn1g erdripdebologna@gmail.com"
+      run: source setup.sh "010206" "010206" "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO7ZzO3l6qf2oLUGga7Ctdfg6GB7oWUYxde733McNn1gerdripdebologna@gmail.com"
     - name: Setup tmate Session
       uses: mxschmitt/action-tmate@v2
