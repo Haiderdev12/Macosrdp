@@ -11,6 +11,29 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
+# Install MacPorts
+echo "Installing MacPorts..."
+curl -O https://distfiles.macports.org/MacPorts/MacPorts-2.9.0.tar.bz2
+tar xf MacPorts-2.9.0.tar.bz2
+cd MacPorts-2.9.0/
+sudo chmod +x ./configure
+./configure
+sudo make
+sudo make install
+cd ..
+rm -rf MacPorts-2.9.0*
+echo "MacPorts installed successfully."
+
+# Update PATH for MacPorts
+echo "Updating PATH for MacPorts..."
+echo 'export PATH="/opt/local/bin:/opt/local/sbin:$PATH"' >> ~/.bash_profile
+source ~/.bash_profile
+
+# Install xprop
+echo "Installing xprop..."
+sudo port install xorg-xprop
+echo "xprop installed successfully."
+
 # Install XQuartz
 echo "Installing XQuartz..."
 brew install --cask xquartz
