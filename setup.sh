@@ -11,9 +11,19 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
-# Install Apache Guacamole
-brew tap jaredledvina/guacamole
-brew install guacamole-server
+# Install Dependencies
+brew install cairo libjpeg libpng ossp-uuid
+
+# Get the Source Code
+curl -L -o guacamole-server.tar.gz https://apache.org/dyn/closer.lua?action=download&filename=guacamole/1.5.4/source/guacamole-server-1.5.4.tar.gz
+tar -xzf guacamole-server.tar.gz
+cd guacamole-server-1.5.4
+
+# Build from Source
+./configure --with-init-dir=/etc/init.d
+make
+sudo make install
+sudo ldconfig
 
 # Create a directory for Guacamole configuration
 mkdir ~/.guacamole
@@ -89,5 +99,3 @@ brew services start tomcat
 echo "Access Guacamole web interface at http://localhost:8080/guacamole/"
 # Log in with your username and password
 # Enjoy your VNC connection to your Apple Remote Desktop
-
-
