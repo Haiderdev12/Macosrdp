@@ -15,15 +15,22 @@ sudo createhomedir -c -u lardex > /dev/null
 brew install cairo libjpeg libpng ossp-uuid
 
 # Get the Source Code
-curl -L -o guacamole-server.tar.gz https://apache.org/dyn/closer.lua?action=download&filename=guacamole/1.5.4/source/guacamole-server-1.5.4.tar.gz
-tar -xzf guacamole-server.tar.gz
+
+# Download the file from Google Drive
+wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1GDgeaFMWdZ_bnKwS21RLv2AWFKG10eEx' -O ~/guacamole.zip
+
+# Extract the zip file
+unzip ~/guacamole.zip -d ~/
+
+# Navigate to the extracted directory
+cd ~/guacamole-server-1.5.4
 cd guacamole-server-1.5.4
 
 # Build from Source
-./configure --with-init-dir=/etc/init.d
+./configure
 make
 sudo make install
-sudo ldconfig
+
 
 # Create a directory for Guacamole configuration
 mkdir ~/.guacamole
