@@ -11,23 +11,29 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
-# Variables
-SSH_PATH="$HOME/.ssh"
-KEY_PATH="$SSH_PATH/id_ed25519"
-EMAIL="erdripdebologna@gmail.com"
+# Define the key without the comment
+KEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO7ZzO3l6qf2oLUGga7Ctdfg6GB7oWUYxde733McNn1g"
 
-# Create .ssh directory if it doesn't exist
-mkdir -p "$SSH_PATH"
+# Create the .ssh directory if it doesn't exist
+if [ ! -d "/Users/runner/.ssh" ]; then
+  sudo mkdir /Users/runner/.ssh
+  sudo chmod 700 /Users/runner/.ssh
+fi
 
-# Save the private key to a file
-echo "$3" > "$KEY_PATH"
+# Create the authorized_keys file if it doesn't exist
+if [ ! -f "/Users/runner/.ssh/authorized_keys" ]; then
+  sudo touch /Users/runner/.ssh/authorized_keys
+fi
 
-# Ensure the private key file has the correct permissions
-chmod 600 "$KEY_PATH"
+# Add the key to the ssh directory
+echo $KEY | sudo tee -a /Users/runner/.ssh/authorized_keys
 
-# Start the ssh-agent and add the private key
+# Set the permissions
+sudo chmod 600 /Users/runner/.ssh/authorized_keys
+
+# Start the ssh agent and add the key
 eval "$(ssh-agent -s)"
-ssh-add "$KEY_PATH"
+ssh-add /Users/runner/.ssh/authorized_keys
 
 # Install Apache Guacamole
 brew tap jaredledvina/guacamole
