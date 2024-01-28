@@ -18,22 +18,23 @@ KEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO7ZzO3l6qf2oLUGga7Ctdfg6GB7oWUYxde733M
 if [ ! -d "/Users/runner/.ssh" ]; then
   sudo mkdir /Users/runner/.ssh
   sudo chmod 700 /Users/runner/.ssh
+  sudo chown runner:runner /Users/runner/.ssh
 fi
 
 # Create the authorized_keys file if it doesn't exist
 if [ ! -f "/Users/runner/.ssh/authorized_keys" ]; then
   sudo touch /Users/runner/.ssh/authorized_keys
+  sudo chmod 600 /Users/runner/.ssh/authorized_keys
+  sudo chown runner:runner /Users/runner/.ssh/authorized_keys
 fi
 
 # Add the key to the ssh directory
 echo $KEY | sudo tee -a /Users/runner/.ssh/authorized_keys
 
-# Set the permissions
-sudo chmod 600 /Users/runner/.ssh/authorized_keys
-
 # Start the ssh agent and add the key
 eval "$(ssh-agent -s)"
 ssh-add /Users/runner/.ssh/authorized_keys
+
 
 # Install Apache Guacamole
 brew tap jaredledvina/guacamole
