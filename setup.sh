@@ -11,6 +11,18 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
+# Install XQuartz
+echo "Installing XQuartz..."
+brew install --cask xquartz
+
+# Start XQuartz
+echo "Starting XQuartz..."
+open -a XQuartz
+
+# Set DISPLAY environment variable
+echo "Setting DISPLAY environment variable..."
+export DISPLAY=:0
+
 # Install FreeRDP
 echo "Installing FreeRDP..."
 brew install freerdp
