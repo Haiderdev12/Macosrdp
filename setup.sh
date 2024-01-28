@@ -11,29 +11,25 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
-# Define the key without the comment
-KEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO7ZzO3l6qf2oLUGga7Ctdfg6GB7oWUYxde733McNn1g"
+#!/bin/bash
+
+# Define the email address associated with the key
+EMAIL="erdripdebologna@gmail.com"
 
 # Create the .ssh directory if it doesn't exist
 if [ ! -d "/Users/runner/.ssh" ]; then
-  sudo mkdir /Users/runner/.ssh
-  sudo chmod 700 /Users/runner/.ssh
-  sudo chown runner /Users/runner/.ssh
+  mkdir /Users/runner/.ssh
+  chmod 700 /Users/runner/.ssh
 fi
 
-# Create the authorized_keys file if it doesn't exist
-if [ ! -f "/Users/runner/.ssh/authorized_keys" ]; then
-  sudo touch /Users/runner/.ssh/authorized_keys
-  sudo chmod 600 /Users/runner/.ssh/authorized_keys
-  sudo chown runner /Users/runner/.ssh/authorized_keys
-fi
+# Generate the RSA key
+ssh-keygen -t rsa -b 4096 -C "$EMAIL" -f /Users/runner/.ssh/id_rsa -N ""
 
-# Add the key to the ssh directory
-echo $KEY | sudo tee -a /Users/runner/.ssh/authorized_keys
+# Set the permissions for the key
+chmod 600 /Users/runner/.ssh/id_rsa
 
-# Start the ssh agent and add the key
-eval "$(ssh-agent -s)"
-ssh-add /Users/runner/.ssh/authorized_keys
+# Print the public key
+cat /Users/runner/.ssh/id_rsa.pub
 
 # Install Apache Guacamole
 brew tap jaredledvina/guacamole
