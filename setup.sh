@@ -20,7 +20,7 @@ EMAIL="erdripdebologna@gmail.com"
 mkdir -p "$SSH_PATH"
 
 # Save the private key to a file
-echo $3 > "$KEY_PATH"
+echo "$3" > "$KEY_PATH"
 
 # Ensure the private key file has the correct permissions
 chmod 600 "$KEY_PATH"
