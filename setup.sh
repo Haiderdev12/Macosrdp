@@ -13,25 +13,6 @@ sudo createhomedir -c -u lardex > /dev/null
 
 ifconfig en0 | awk '/ether/ {print $2}'
 
-# Cambia il board-id
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.Boot.plist "Board-ID" "Mac-9AE82516C7C6B903"
-
-# Cambia il modello hardware
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "hw.model.reflectHost" "FALSE"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "hw.model" "MacBookPro16,4"
-
-# Cambia il numero di serie
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "serialNumber.reflectHost" "FALSE"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "serialNumber" "C02XXXXXX123"
-
-# Cambia le impostazioni SMBIOS
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "smbios.reflectHost" "FALSE"
-
-# Cambia le variabili EFI NVRAM
-sudo nvram efi.nvram.var.ROM.reflectHost="FALSE"
-sudo nvram efi.nvram.var.ROM="3c0754a2f9cd"
-sudo nvram efi.nvram.var.MLB.reflectHost="FALSE"
-
 #Enable VNC
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -clientopts -setvnclegacy -vnclegacy no
