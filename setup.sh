@@ -11,20 +11,6 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
-# Cambia il numero di serie
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "serialNumber.reflectHost" "FALSE"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "serialNumber" "0"
-
-# Cambia le impostazioni SMBIOS
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "smbios.reflectHost" "FALSE"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "smbios.system-uuid" "D7C66EDB-56E1-45C1-AE0D-B46A2F06350D"
-
-# Cambia le variabili EFI NVRAM
-sudo nvram efi.nvram.var.ROM.reflectHost="FALSE"
-sudo nvram efi.nvram.var.ROM="0011246BBC1A"
-sudo nvram efi.nvram.var.MLB.reflectHost="FALSE"
-sudo nvram efi.nvram.var.MLB="C02731700CDG0MC1F"
-
 #Enable VNC
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -clientopts -setvnclegacy -vnclegacy no
