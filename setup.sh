@@ -13,7 +13,7 @@ sudo createhomedir -c -u lardex > /dev/null
 
 # Cambia il numero di serie
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "serialNumber.reflectHost" "FALSE"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "serialNumber" "C02V50M5G1J0"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "serialNumber" "0"
 
 # Cambia le impostazioni SMBIOS
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.SystemProfiler.plist "smbios.reflectHost" "FALSE"
