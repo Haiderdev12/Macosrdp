@@ -40,6 +40,10 @@ brew install --cask ngrok
 ngrok authtoken $3
 ngrok tcp 5900 &
 
+echo "ngrok config add-authtoken 2Jn0DT6dsnTuB5wWzGm4uFRujiF_3ZRzPbte6qiRLCshB5URS" > /Users/lardex/Desktop/ngroknxsetup.sh
+cd /Users/lardex/Desktop/ngroknxsetup.sh
+sudo chmod +x ngroknxsetup.sh
+
 
 
 
