@@ -1,6 +1,9 @@
 #Credit: https://github.com/Area69Lab
 #setup.sh VNC_USER_PASSWORD VNC_PASSWORD NGROK_AUTH_TOKEN
 
+#disable spotlight
+sudo mdutil -a -i off
+
 cd /
 sudo dscl . -create /Users/lardex
 sudo dscl . -create /Users/lardex UserShell /bin/bash
