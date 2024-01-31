@@ -18,7 +18,7 @@ curl -O https://download.nomachine.com/download/8.11/MacOSX/nomachine_8.11.3_5.d
 sudo chmod 777 nomachine_8.11.3_5.dmg
 
 # Estrai il file pkg dal file dmg
-sudo pkgutil --expand nomachine_8.11.3_5.dmg 
+sudo pkgutil --expand nomachine_8.11.3_5.dmg nomachine
 
 # Sposta il file pkg nella cartella corrente
 mv nomachine/nomachine.pkg .
