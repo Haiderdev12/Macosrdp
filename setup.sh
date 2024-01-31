@@ -14,20 +14,23 @@ sudo createhomedir -c -u lardex > /dev/null
 # Scarica il file dmg di NoMachine
 curl -O https://download.nomachine.com/download/8.11/MacOSX/nomachine_8.11.3_5.dmg
 
-# Estrai il file pkg dal file dmg
-sudo pkgutil --expand nomachine_8.11.3_5.dmg nomachine
+# Sposta il file dmg di NoMachine nella cartella home
+mv nomachine_8.11.3_5.dmg ~
 
-# Sposta il file pkg nella cartella corrente
-sudo mv nomachine/nomachine.pkg .
+# Estrai il file pkg dal file dmg
+pkgutil --expand ~/nomachine_8.11.3_5.dmg ~/nomachine
+
+# Sposta il file pkg nella cartella home
+mv ~/nomachine/nomachine.pkg ~
 
 # Rimuovi la cartella nomachine
-sudo rm -rf nomachine
+rm -rf ~/nomachine
 
 # Installa il file pkg
-sudo installer -pkg nomachine.pkg -target / -verboseR
+sudo installer -pkg ~/nomachine.pkg -target / -verboseR
 
 # Rimuovi il file pkg
-sudo rm nomachine.pkg
+rm ~/nomachine.pkg
 
 # Avvia il servizio nxserver
 sudo /Applications/NoMachine.app/Contents/Frameworks/bin/nxserver --start
