@@ -52,7 +52,7 @@ ngrok authtoken $3
 ngrok tcp 5900 &
 
 # Start the noVNC server
-./utils/launch.sh --vnc localhost:5900
+./utils/novnc_proxy --vnc localhost:5900
 
 
 
