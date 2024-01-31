@@ -35,12 +35,24 @@ sudo launchctl load /Library/LaunchDaemons/com.startup.sysctl.plist
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -restart -agent -console
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate
 
+# Clone noVNC repository
+git clone https://github.com/novnc/noVNC.git
+
+# Navigate into the noVNC directory
+cd noVNC
+
+# Install websockify
+pip install websockify
+
 #install ngrok
 brew install --cask ngrok
 
 #configure ngrok and start it
 ngrok authtoken $3
 ngrok tcp --region=eu 5900 &
+
+# Start the noVNC server
+./utils/launch.sh --vnc localhost:5900
 
 
 
