@@ -23,11 +23,10 @@ sudo installer -pkg /Volumes/NoMachine/nomachine.pkg -target /
 # Unmount the disk image
 hdiutil detach /Volumes/NoMachine
 
+cat /usr/NX/etc/server.cfg | grep DisplayBase
+
 # Start the nxserver service
 sudo /Applications/NoMachine.app/Contents/Frameworks/bin/nxserver --start
-
-# Create a user account for nxserver
-sudo /Applications/NoMachine.app/Contents/Frameworks/bin/nxserver --useradd lardex --system --password 010206
 
 # Enable the user account for nxserver
 sudo /Applications/NoMachine.app/Contents/Frameworks/bin/nxserver --userenable lardex
@@ -37,7 +36,7 @@ brew install --cask ngrok
 
 #configure ngrok and start it
 ngrok authtoken $3
-ngrok tcp 4001 &
+ngrok tcp &
 
 
 
