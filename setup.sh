@@ -23,7 +23,7 @@ sudo installer -pkg /Volumes/NoMachine/nomachine.pkg -target /
 # Unmount the disk image
 hdiutil detach /Volumes/NoMachine
 
-sudo networksetup -setsocksfirewallproxy "en0" localhost 4000
+address = ipconfig getifaddr en0
 
 # Avvia il server di noMachine
 sudo /Applications/NoMachine.app/Contents/Frameworks/bin/nxserver --start
@@ -33,7 +33,7 @@ brew install --cask ngrok
 
 #configure ngrok and start it
 ngrok authtoken $3
-ngrok tcp 4000 &
+ngrok tcp $address:4000 &
 
 
 
