@@ -47,12 +47,14 @@ pip install websockify
 #install ngrok
 brew install --cask ngrok
 
+# Start the noVNC server
+./utils/novnc_proxy --vnc localhost:5900
+
 #configure ngrok and start it
 ngrok authtoken $3
 ngrok tcp 5900 &
 
-# Start the noVNC server
-./utils/novnc_proxy --vnc localhost:5900
+
 
 
 
