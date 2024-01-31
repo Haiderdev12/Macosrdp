@@ -26,16 +26,12 @@ hdiutil detach /Volumes/NoMachine
 # Avvia il server di noMachine
 sudo /Applications/NoMachine.app/Contents/Frameworks/bin/nxserver --start
 
-port=$(grep NXUPnPPort /Applications/NoMachine.app/Contents/Frameworks/etc/server.cfg | cut -d= -f2)
-
-echo $port
-
 #install ngrok
 brew install --cask ngrok
 
 #configure ngrok and start it
 ngrok authtoken $3
-ngrok tcp $port
+ngrok tcp 4000 &
 
 
 
