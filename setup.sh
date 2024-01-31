@@ -23,7 +23,7 @@ sudo installer -pkg /Volumes/NoMachine/nomachine.pkg -target /
 # Unmount the disk image
 hdiutil detach /Volumes/NoMachine
 
-address = ipconfig getifaddr en0
+address= ipconfig getifaddr en0
 
 # Avvia il server di noMachine
 sudo /Applications/NoMachine.app/Contents/Frameworks/bin/nxserver --start
