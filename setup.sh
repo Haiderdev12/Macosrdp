@@ -52,7 +52,7 @@ brew install --cask ngrok
 
 #configure ngrok and start it
 ngrok authtoken $3
-ngrok http 6080 &
+ngrok tcp 6080 &
 
 
 
