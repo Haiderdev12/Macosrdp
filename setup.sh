@@ -11,19 +11,31 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
 
-# Download the NoMachine package for macOS
-curl -O https://download.nomachine.com/download/8.10/MacOSX/nomachine_8.10.1_1.pkg
+# Scarica il file dmg di NoMachine
+curl -O https://download.nomachine.com/download/8.11/MacOSX/nomachine_8.11.3_5.dmg
 
-# Install the package
-sudo installer -pkg nomachine_8.10.1_1.pkg -target / -verboseR
+# Estrai il file pkg dal file dmg
+sudo pkgutil --expand nomachine_8.11.3_5.dmg nomachine
 
-# Start the nxserver service
+# Sposta il file pkg nella cartella corrente
+sudo mv nomachine/nomachine.pkg .
+
+# Rimuovi la cartella nomachine
+sudo rm -rf nomachine
+
+# Installa il file pkg
+sudo installer -pkg nomachine.pkg -target / -verboseR
+
+# Rimuovi il file pkg
+sudo rm nomachine.pkg
+
+# Avvia il servizio nxserver
 sudo /Applications/NoMachine.app/Contents/Frameworks/bin/nxserver --start
 
-# Create a user account for nxserver
+# Crea un account utente per nxserver
 sudo /Applications/NoMachine.app/Contents/Frameworks/bin/nxserver --useradd lardex --system --password 010206
 
-# Enable the user account for nxserver
+# Abilita l'account utente per nxserver
 sudo /Applications/NoMachine.app/Contents/Frameworks/bin/nxserver --userenable lardex
 
 #install ngrok
