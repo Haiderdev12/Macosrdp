@@ -23,10 +23,10 @@ sudo installer -pkg /Volumes/NoMachine/nomachine.pkg -target /
 # Unmount the disk image
 hdiutil detach /Volumes/NoMachine
 
-cat /usr/NX/etc/server.cfg | grep DisplayBase
-
 # Start the nxserver service
 sudo /Applications/NoMachine.app/Contents/Frameworks/bin/nxserver --start
+
+cat /usr/NX/etc/server.cfg | grep DisplayBase
 
 # Enable the user account for nxserver
 sudo /Applications/NoMachine.app/Contents/Frameworks/bin/nxserver --userenable lardex
