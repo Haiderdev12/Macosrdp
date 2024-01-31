@@ -24,10 +24,9 @@ sudo installer -pkg /Volumes/NoMachine/nomachine.pkg -target /
 hdiutil detach /Volumes/NoMachine
 
 # Avvia il server di noMachine
-sudo /Applications/NoMachine.app/Contents/Frameworks/bin/nxserver --start
+/Applications/NoMachine.app/Contents/Frameworks/bin/nxserver --start
 
-# Ottieni la porta su cui il server di noMachine sta ascoltando
-port=$(lsof -p $(pgrep nxserver) | grep -a LISTEN | awk '{print $9}' | cut -d: -f2)
+port=$(grep NXUPnPPort /Applications/NoMachine.app/Contents/Frameworks/etc/server.cfg | cut -d= -f2)
 
 echo $port
 
