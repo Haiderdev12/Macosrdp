@@ -24,7 +24,7 @@ sudo installer -pkg /Volumes/NoMachine/nomachine.pkg -target /
 hdiutil detach /Volumes/NoMachine
 
 # Avvia il server di noMachine
-/Applications/NoMachine.app/Contents/Frameworks/bin/nxserver --start
+sudo /Applications/NoMachine.app/Contents/Frameworks/bin/nxserver --start
 
 port=$(grep NXUPnPPort /Applications/NoMachine.app/Contents/Frameworks/etc/server.cfg | cut -d= -f2)
 
