@@ -55,6 +55,30 @@ brew install --cask ngrok
 ngrok authtoken $3
 ngrok http 6080 &
 
+# Get the screen resolution
+resolution=$(sudo system_profiler SPDisplaysDataType | grep Resolution)
+
+# Parse the resolution to get the width and height
+width=$(echo $resolution | cut -d ' ' -f 2)
+height=$(echo $resolution | cut -d ' ' -f 4)
+
+# Get the bandwidth
+bandwidth=$(sudo networkQuality -v | grep "Download capacity" | cut -d ' ' -f 3)
+
+# Convert bandwidth from Mbps to Kbps
+bandwidth=$(echo "$bandwidth*1000" | bc)
+
+# Set the compression and quality level based on bandwidth and resolution
+if [[ $width -gt 1920 ]] || [[ $height -gt 1080 ]] || [[ $bandwidth -lt 100000 ]]; then
+    # High resolution or low bandwidth - set lower compression and quality level
+    sudo awk '{gsub(/compressionLevel = 6/, "compressionLevel = 2"); print}' vnc.html > temp && sudo mv temp vnc.html
+    sudo awk '{gsub(/qualityLevel = 6/, "qualityLevel = 2"); print}' vnc.html > temp && sudo mv temp vnc.html
+else
+    # Low resolution or high bandwidth - set higher compression and quality level
+    sudo awk '{gsub(/compressionLevel = 2/, "compressionLevel = 6"); print}' vnc.html > temp && sudo mv temp vnc.html
+    sudo awk '{gsub(/qualityLevel = 2/, "qualityLevel = 6"); print}' vnc.html > temp && sudo mv temp vnc.html
+fi
+
 
 
 
