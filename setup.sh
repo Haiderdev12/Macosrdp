@@ -49,10 +49,9 @@ brew install --cask ngrok
 
 #configure ngrok and start it
 ngrok authtoken $3
-ngrok tcp --region=eu 5900 &
+ngrok tcp 5900 &
 
 # Start the noVNC server
-sudo chmod +x utils/launch.sh
 ./utils/launch.sh --vnc localhost:5900
 
 
