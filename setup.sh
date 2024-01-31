@@ -23,18 +23,20 @@ sudo installer -pkg /Volumes/NoMachine/nomachine.pkg -target /
 # Unmount the disk image
 hdiutil detach /Volumes/NoMachine
 
-# Start the nxserver service
+# Avvia il server di noMachine
 sudo /Applications/NoMachine.app/Contents/Frameworks/bin/nxserver --start
 
-# Enable the user account for nxserver
-sudo /Applications/NoMachine.app/Contents/Frameworks/bin/nxserver --userenable lardex
+# Ottieni la porta su cui il server di noMachine sta ascoltando
+port=$(lsof -p $(pgrep nxserver) | grep -a LISTEN | awk '{print $9}' | cut -d: -f2)
+
+echo $port
 
 #install ngrok
 brew install --cask ngrok
 
 #configure ngrok and start it
 ngrok authtoken $3
-ngrok tcp 4000 &
+ngrok tcp $port
 
 
 
