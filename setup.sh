@@ -51,8 +51,7 @@ brew install --cask ngrok
 ngrok authtoken $3
 ngrok tcp 5900 &
 
-# Start the noVNC server
-./utils/novnc_proxy --listen 5900 --vnc localhost:5900
+
 
 
 
