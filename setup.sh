@@ -18,7 +18,7 @@ curl -L https://downloads.apache.org/guacamole/1.5.4/source/guacamole-server-1.5
 tar xzf guacamole-server-1.5.4.tar.gz
 
 # Install the dependencies using Homebrew
-brew install cairo libjpeg-turbo libpng libuuid
+brew install cairo libjpeg-turbo libpng ossp-uuid
 
 # Navigate to the source code directory
 cd guacamole-server-1.5.4
