@@ -19,9 +19,7 @@ tar xzf guacamole-server-1.5.4.tar.gz
 
 # Install the dependencies using Homebrew
 brew install cairo libjpeg-turbo libpng ossp-uuid
-brew install pango
-brew install libssh2
-brew install libtelnet libVNCServer libwebsockets libwebp wsock32
+
 
 # Navigate to the source code directory
 cd guacamole-server-1.5.4
