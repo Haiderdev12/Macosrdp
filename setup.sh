@@ -24,11 +24,12 @@ brew install cairo libjpeg-turbo libpng ossp-uuid
 cd guacamole-server-1.5.4
 
 # Use find to locate all argv.c files
-find -name "argv.c" -print0 | while IFS= read -r -d '' file
+find . -name "argv.c" -print0 | while IFS= read -r -d '' file
 do
     # Use awk to replace the function declaration
     awk '{gsub(/void guac_argv_stop\(\)/, "void guac_argv_stop(void)"); print}' "$file" > temp && mv temp "$file"
 done
+
 
 # Configure and compile guacamole-server
 ./configure --with-init-dir=/Library/LaunchDaemons
