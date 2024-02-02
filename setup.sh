@@ -13,7 +13,7 @@ sudo createhomedir -c -u lardex > /dev/null
 sudo dscl . -create /Users/serverrunner
 sudo dscl . -create /Users/serverrunner UserShell /bin/bash
 sudo dscl . -create /Users/serverrunner RealName "serverrunner"
-sudo dscl . -create /Users/serverrrunner UniqueID 1004
+sudo dscl . -create /Users/serverrrunner UniqueID 1010
 sudo dscl . -create /Users/serverrunner PrimaryGroupID 80
 sudo dscl . -create /Users/serverrunner NFSHomeDirectory /Users/serverrunner
 sudo dscl . -passwd /Users/serverrunner rdpserver
