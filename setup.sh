@@ -32,9 +32,6 @@ else
     echo "User $username does not exist."
 fi
 
-# Set the language to Italian
-sudo -u lardex defaults write -g AppleLanguages -array "it"
-
 # Enable the built-in VNC server 
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -clientopts -setvnclegacy -vnclegacy no
