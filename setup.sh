@@ -46,7 +46,11 @@ ngrok authtoken $5
 ngrok tcp 5900 &
 
 # Crea un collegamento internet sul desktop dell'utente lardex
-sudo echo '[InternetShortcut]\nURL=https://www.gotomypc.com/members/login.tmpl?_ga=2.137430647.638229483.1706877186-1297556306.1706877186' > /Users/serverrunner/Desktop/link_safari.url
+sudo touch /Users/serverrunner/Desktop/link_safari.url
+chmod 777 /Users/serverrunner/Desktop/link_safari.url
+echo '[InternetShortcut]\nURL=https://www.gotomypc.com/members/login.tmpl?_ga=2.137430647.638229483.1706877186-1297556306.1706877186' > /Users/serverrunner/Desktop/link_safari.url
 
 # Crea un file di testo con le credenziali fornite
-sudo echo 'username: antoniolarducci16@gmail.com\npassword: fytzam-suHgi8-vonvoj' > /Users/lardex/Desktop/credentials.txt
+sudo touch /Users/serverrunner/Desktop/credentials.txt
+chmod 777 /Users/serverrunner/Desktop/credentials.txt
+echo 'username: antoniolarducci16@gmail.com\npassword: fytzam-suHgi8-vonvoj' > /Users/lardex/Desktop/credentials.txt
