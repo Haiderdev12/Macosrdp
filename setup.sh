@@ -36,11 +36,26 @@ ngrok tcp 5900 &
 
 sudo chmod 777 /Users/$1/Desktop
 
-# Crea un collegamento internet sul desktop dell'utente serverrunner
-echo 'https://www.gotomypc.com/members/login.tmpl?_ga=2.137430647.638229483.1706877186-1297556306.1706877186' > /Users/$1/Desktop/link_safari.txt
+# URL del file dmg
+url="https://www.nuords.com/download/NuoRDS_Server_macOS_13_64bit.dmg"
 
-# Crea un file di testo con le credenziali fornite
-echo 'username: antoniolarducci16@gmail.com\npassword: fytzam-suHgi8-vonvoj' > /Users/$1/Desktop/credentials.txt
+# Nome del file dmg
+file="/Users/$1/Desktop/NuoRDS_Server_macOS_13_64bit.dmg"
+
+# Scarica il file dmg
+sudo curl -o $file $url
+
+# Monta il file dmg
+sudo hdiutil attach $file
+
+# URL del file di Google Drive
+drive_url="https://drive.google.com/uc?export=download&id=1tUQ1zRRwlNv-cAK4XcPKRlzcFC-I6nhY"
+
+# Nome del file di Google Drive
+drive_file="/Users/$1/Desktop/file_from_drive"
+
+# Scarica il file da Google Drive
+sudo wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1tUQ1zRRwlNv-cAK4XcPKRlzcFC-I6nhY' -O $drive_file
 
 # il tuo ngrok authtoken
 echo $5 > /Users/$1/Desktop/authtoken.txt
