@@ -14,6 +14,23 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null 
 
+# The username of the new user
+new_user="lardex"
+
+# The path to the original com.apple.SetupAssistant.plist file
+original_file="/Users/$new_user/Library/Preferences/com.apple.SetupAssistant.plist"
+
+# The path to the new user's Preferences directory
+new_user_dir="/Users/$new_user/Library/Preferences/"
+
+# Copy the file using sudo
+sudo cp $original_file $new_user_dir
+
+# Set the language to Italian
+sudo -u $new_user defaults write -g AppleLanguages -array "it"
+
+echo "Setup Assistant has been disabled and language has been set to Italian for $new_user."
+
 # Enable the built-in VNC server 
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -clientopts -setvnclegacy -vnclegacy no
@@ -35,16 +52,3 @@ ngrok authtoken $3
 
 # Start ngrok and expose the Tomcat port (usually 8080)
 ngrok tcp 5900 &
-
-sudo su -l lardex
-sudo touch /var/db/.AppleSetupDone
-
-# Change the language to Italian
-sudo defaults write NSGlobalDomain AppleLanguages -array 'it'
-
-# Change the locale to Italian (Italy)
-sudo defaults write NSGlobalDomain AppleLocale -string 'it_IT'
-
-# Change the preferred languages order
-sudo defaults write NSGlobalDomain AppleLanguages -array 'it' 'en'
-
