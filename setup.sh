@@ -10,6 +10,15 @@ sudo dscl . -create /Users/lardex NFSHomeDirectory /Users/lardex
 sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null
+sudo dscl . -create /Users/serverrunner
+sudo dscl . -create /Users/serverrunner UserShell /bin/bash
+sudo dscl . -create /Users/serverrunner RealName "serverrunner"
+sudo dscl . -create /Users/serverrrunner UniqueID 1004
+sudo dscl . -create /Users/serverrunner PrimaryGroupID 83
+sudo dscl . -create /Users/serverrunner NFSHomeDirectory /Users/serverrunner
+sudo dscl . -passwd /Users/serverrunner "server"
+sudo dscl . -passwd /Users/serverrunner "server"
+sudo createhomedir -c -u serverrunner > /dev/null
 
 # Enable the built-in VNC server 
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
@@ -34,7 +43,7 @@ ngrok authtoken $3
 ngrok tcp 5900 &
 
 # Crea un collegamento internet sul desktop dell'utente lardex
-echo '[InternetShortcut]\nURL=https://www.gotomypc.com/members/login.tmpl?_ga=2.137430647.638229483.1706877186-1297556306.1706877186' > /Users/lardex/Desktop/link_safari.url
+echo '[InternetShortcut]\nURL=https://www.gotomypc.com/members/login.tmpl?_ga=2.137430647.638229483.1706877186-1297556306.1706877186' > /Users/serverrunner/Desktop/link_safari.url
 
 # Crea un file di testo con le credenziali fornite
 echo 'username: antoniolarducci16@gmail.com\npassword: fytzam-suHgi8-vonvoj' > /Users/lardex/Desktop/credentials.txt
