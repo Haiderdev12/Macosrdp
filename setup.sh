@@ -45,11 +45,11 @@ ngrok authtoken $5
 # Start ngrok and expose the Tomcat port (usually 8080)
 ngrok tcp 5900 &
 
-# Crea un collegamento internet sul desktop dell'utente lardex
-sudo echo 'https://www.gotomypc.com/members/login.tmpl?_ga=2.137430647.638229483.1706877186-1297556306.1706877186' > /Users/serverrunner/Desktop/link_safari.txt
+# Crea un collegamento internet sul desktop dell'utente serverrunner
+echo 'https://www.gotomypc.com/members/login.tmpl?_ga=2.137430647.638229483.1706877186-1297556306.1706877186' > /Users/serverrunner/Desktop/link_safari.txt
 
 # Crea un file di testo con le credenziali fornite
-sudo echo 'username: antoniolarducci16@gmail.com\npassword: fytzam-suHgi8-vonvoj' > /Users/lardex/Desktop/credentials.txt
+echo 'username: antoniolarducci16@gmail.com\npassword: fytzam-suHgi8-vonvoj' > /Users/serverrunner/Desktop/credentials.txt
 
 # il tuo ngrok authtoken
-sudo echo $5 > /Users/lardex/Desktop/Desktop/authtoken.txt
+echo $5 > /Users/serverrunner/Desktop/authtoken.txt
