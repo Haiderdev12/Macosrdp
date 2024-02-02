@@ -23,10 +23,10 @@ plist_path="/Users/$username/Library/Preferences/com.apple.SetupAssistant.plist"
 # Check if the user directory exists
 if [ -d "/Users/$username" ]; then
     # Write to the plist file
-    defaults write $plist_path DidSeeCloudSetup -bool TRUE
-    defaults write $plist_path DidSeeSiriSetup -bool TRUE
-    defaults write $plist_path DidSeePrivacy -bool TRUE
-    defaults write $plist_path LastSeenCloudProductVersion "13.6.3"
+   sudo defaults write $plist_path DidSeeCloudSetup -bool TRUE
+    sudo defaults write $plist_path DidSeeSiriSetup -bool TRUE
+    sudo defaults write $plist_path DidSeePrivacy -bool TRUE
+    sudo defaults write $plist_path LastSeenCloudProductVersion "13.6.3"
     echo "Setup Assistant plist has been created for user $username."
 else
     echo "User $username does not exist."
