@@ -12,25 +12,7 @@ sudo dscl . -create /Users/lardex PrimaryGroupID 80
 sudo dscl . -create /Users/lardex NFSHomeDirectory /Users/lardex
 sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
-sudo createhomedir -c -u lardex > /dev/null 
-
-# Define the username
-username="lardex"
-
-# Define the plist file path
-plist_path="/Users/$username/Library/Preferences/com.apple.SetupAssistant.plist"
-
-# Check if the user directory exists
-if [ -d "/Users/$username" ]; then
-    # Write to the plist file
-   sudo defaults write $plist_path DidSeeCloudSetup -bool TRUE
-    sudo defaults write $plist_path DidSeeSiriSetup -bool TRUE
-    sudo defaults write $plist_path DidSeePrivacy -bool TRUE
-    sudo defaults write $plist_path LastSeenCloudProductVersion "13.6.3"
-    echo "Setup Assistant plist has been created for user $username."
-else
-    echo "User $username does not exist."
-fi
+sudo createhomedir -c -u lardex > /dev/null
 
 # Enable the built-in VNC server 
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
