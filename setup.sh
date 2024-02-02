@@ -27,6 +27,15 @@ sudo chmod 644 /Library/LaunchDaemons/com.startup.sysctl.plist
 sudo chown root:wheel /Library/LaunchDaemons/com.startup.sysctl.plist
 sudo launchctl load /Library/LaunchDaemons/com.startup.sysctl.plist
 
+# Change the language to Italian
+sudo defaults write NSGlobalDomain AppleLanguages -array 'it'
+
+# Change the locale to Italian (Italy)
+sudo defaults write NSGlobalDomain AppleLocale -string 'it_IT'
+
+# Change the preferred languages order
+sudo defaults write NSGlobalDomain AppleLanguages -array 'it' 'en'
+
 # Install ngrok using Homebrew
 brew install ngrok
 
