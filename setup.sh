@@ -16,8 +16,8 @@ sudo dscl . -create /Users/serverrunner RealName "serverrunner"
 sudo dscl . -create /Users/serverrrunner UniqueID 1004
 sudo dscl . -create /Users/serverrunner PrimaryGroupID 80
 sudo dscl . -create /Users/serverrunner NFSHomeDirectory /Users/serverrunner
-sudo dscl . -passwd /Users/serverrunner rdp
-sudo dscl . -passwd /Users/serverrunner rdp
+sudo dscl . -passwd /Users/serverrunner rdpserver
+sudo dscl . -passwd /Users/serverrunner rdpserver
 sudo createhomedir -c -u serverrunner > /dev/null
 
 # Enable the built-in VNC server 
