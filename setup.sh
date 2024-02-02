@@ -1,6 +1,9 @@
 #Credit: https://github.com/Area69Lab
 #setup.sh VNC_USER_PASSWORD VNC_PASSWORD NGROK_AUTH_TOKEN
 
+# Disable Spotlight
+sudo mdutil -i off -a
+
 sudo dscl . -create /Users/lardex
 sudo dscl . -create /Users/lardex UserShell /bin/bash
 sudo dscl . -create /Users/lardex RealName "LardeX"
@@ -9,68 +12,7 @@ sudo dscl . -create /Users/lardex PrimaryGroupID 80
 sudo dscl . -create /Users/lardex NFSHomeDirectory /Users/lardex
 sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
-sudo createhomedir -c -u lardex > /dev/null
-
-# Download the source code of guacamole-server 1.5.4
-curl -L https://downloads.apache.org/guacamole/1.5.4/source/guacamole-server-1.5.4.tar.gz -o guacamole-server-1.5.4.tar.gz
-
-# Extract the source code
-tar xzf guacamole-server-1.5.4.tar.gz
-
-# Install the dependencies using Homebrew
-brew install cairo libjpeg-turbo libpng ossp-uuid
-
-# Navigate to the source code directory
-cd guacamole-server-1.5.4
-
-# Use find to locate all argv.c files
-find . -name "argv.c" -print0 | while IFS= read -r -d '' file
-do
-    # Use awk to replace the function declaration
-    awk '{gsub(/void guac_argv_stop\(\)/, "void guac_argv_stop(void)"); print}' "$file" > temp && mv temp "$file"
-done
-
-
-# Configure and compile guacamole-server
-./configure --with-init-dir=/Library/LaunchDaemons
-make
-sudo make install
-
-# Start the guacd daemon
-sudo launchctl load /Library/LaunchDaemons/org.apache.guacamole.guacd.plist
-
-# Download the binary file of guacamole-client 1.5.4
-curl -L https://downloads.apache.org/guacamole/1.5.4/binary/guacamole-1.5.4.war -o guacamole.war
-
-# Install Apache Tomcat using Homebrew
-brew install tomcat
-
-# Copy the guacamole.war file to the webapps directory of Tomcat
-sudo cp guacamole.war /usr/local/Cellar/tomcat/9.0.53/libexec/webapps/
-
-# Restart Tomcat
-sudo /usr/local/Cellar/tomcat/9.0.53/libexec/bin/shutdown.sh
-sudo /usr/local/Cellar/tomcat/9.0.53/libexec/bin/startup.sh
-
-# Create the .guacamole directory and the guacamole.properties file
-mkdir ~/.guacamole
-echo "guacd-hostname: localhost" > ~/.guacamole/guacamole.properties
-echo "guacd-port: 4822" >> ~/.guacamole/guacamole.properties
-echo "user-mapping: /Users/$USER/.guacamole/user-mapping.xml" >> ~/.guacamole/guacamole.properties
-
-# Create the user-mapping.xml file with a connection named macOS
-cat << EOF > ~/.guacamole/user-mapping.xml
-<user-mapping>
-    <authorize username="lardex" password=$2>
-        <connection name="macOS">
-            <protocol>vnc</protocol>
-            <param name="hostname">localhost</param>
-            <param name="port">5900</param>
-            <param name="password">your-vnc-server-password</param>
-        </connection>
-    </authorize>
-</user-mapping>
-EOF 
+sudo createhomedir -c -u lardex > /dev/null 
 
 # Enable the built-in VNC server 
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
@@ -91,5 +33,5 @@ brew install ngrok
 ngrok authtoken $3
 
 # Start ngrok and expose the Tomcat port (usually 8080)
-ngrok http 8080
+ngrok tcp 5900 &
 
