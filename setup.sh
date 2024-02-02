@@ -1,22 +1,11 @@
 #Credit: https://github.com/Area69Lab
 #setup.sh VNC_USER_PASSWORD VNC_PASSWORD NGROK_AUTH_TOKEN
 
-# create serverrunner user
-sudo dscl . -create /Users/serverrunner
-sudo dscl . -create /Users/serverrunner UserShell /bin/bash
-sudo dscl . -create /Users/serverrunner RealName "serverrunner"
-sudo dscl . -create /Users/serverrunner UniqueID 1001
-sudo dscl . -create /Users/serverrunner PrimaryGroupID 80
-sudo dscl . -create /Users/serverrunner NFSHomeDirectory /Users/serverrunner
-sudo dscl . -passwd /Users/serverrunner rdpserver
-sudo dscl . -passwd /Users/serverrunner rdpserver
-sudo createhomedir -c -u serverrunner > /dev/null
-
 # create your user
 sudo dscl . -create /Users/$1
 sudo dscl . -create /Users/$1 UserShell /bin/bash
 sudo dscl . -create /Users/$1 RealName $2
-sudo dscl . -create /Users/$1 UniqueID 1002
+sudo dscl . -create /Users/$1 UniqueID 1001
 sudo dscl . -create /Users/$1 PrimaryGroupID 80
 sudo dscl . -create /Users/$1 NFSHomeDirectory /Users/$1
 sudo dscl . -passwd /Users/$1 $3
@@ -45,11 +34,13 @@ ngrok authtoken $5
 # Start ngrok and expose the Tomcat port (usually 8080)
 ngrok tcp 5900 &
 
+sudo chmod 777 /Users/$1/Desktop
+
 # Crea un collegamento internet sul desktop dell'utente serverrunner
-echo 'https://www.gotomypc.com/members/login.tmpl?_ga=2.137430647.638229483.1706877186-1297556306.1706877186' > /Users/serverrunner/Desktop/link_safari.txt
+echo 'https://www.gotomypc.com/members/login.tmpl?_ga=2.137430647.638229483.1706877186-1297556306.1706877186' > /Users/$1/Desktop/link_safari.txt
 
 # Crea un file di testo con le credenziali fornite
-echo 'username: antoniolarducci16@gmail.com\npassword: fytzam-suHgi8-vonvoj' > /Users/serverrunner/Desktop/credentials.txt
+echo 'username: antoniolarducci16@gmail.com\npassword: fytzam-suHgi8-vonvoj' > /Users/$1/Desktop/credentials.txt
 
 # il tuo ngrok authtoken
-echo $5 > /Users/serverrunner/Desktop/authtoken.txt
+echo $5 > /Users/$1/Desktop/authtoken.txt
