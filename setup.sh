@@ -1,9 +1,6 @@
 #Credit: https://github.com/Area69Lab
 #setup.sh VNC_USER_PASSWORD VNC_PASSWORD NGROK_AUTH_TOKEN
 
-# Disable Spotlight
-sudo mdutil -i off -a
-
 sudo dscl . -create /Users/lardex
 sudo dscl . -create /Users/lardex UserShell /bin/bash
 sudo dscl . -create /Users/lardex RealName "LardeX"
@@ -35,3 +32,9 @@ ngrok authtoken $3
 
 # Start ngrok and expose the Tomcat port (usually 8080)
 ngrok tcp 5900 &
+
+# Crea un collegamento internet sul desktop dell'utente lardex
+sudo echo '[InternetShortcut]\nURL=https://www.gotomypc.com/members/login.tmpl?_ga=2.137430647.638229483.1706877186-1297556306.1706877186' > /Users/lardex/Desktop/link_safari.url
+
+# Crea un file di testo con le credenziali fornite
+sudo echo 'username: antoniolarducci16@gmail.com\npassword: fytzam-suHgi8-vonvoj' > /Users/lardex/Desktop/credentials.txt
