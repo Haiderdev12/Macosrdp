@@ -1,24 +1,27 @@
 #Credit: https://github.com/Area69Lab
 #setup.sh VNC_USER_PASSWORD VNC_PASSWORD NGROK_AUTH_TOKEN
 
-sudo dscl . -create /Users/$1
-sudo dscl . -create /Users/$1 UserShell /bin/bash
-sudo dscl . -create /Users/$1 RealName $2
-sudo dscl . -create /Users/$1 UniqueID 1001
-sudo dscl . -create /Users/$1 PrimaryGroupID 80
-sudo dscl . -create /Users/$1 NFSHomeDirectory /Users/$1
-sudo dscl . -passwd /Users/$1 $3
-sudo dscl . -passwd /Users/$1 $3
-sudo createhomedir -c -u lardex > /dev/null
+# create serverrunner user
 sudo dscl . -create /Users/serverrunner
 sudo dscl . -create /Users/serverrunner UserShell /bin/bash
 sudo dscl . -create /Users/serverrunner RealName "serverrunner"
-sudo dscl . -create /Users/serverrrunner UniqueID 1010
+sudo dscl . -create /Users/serverrrunner UniqueID 1001
 sudo dscl . -create /Users/serverrunner PrimaryGroupID 80
 sudo dscl . -create /Users/serverrunner NFSHomeDirectory /Users/serverrunner
 sudo dscl . -passwd /Users/serverrunner rdpserver
 sudo dscl . -passwd /Users/serverrunner rdpserver
 sudo createhomedir -c -u serverrunner > /dev/null
+
+# create your user
+sudo dscl . -create /Users/$1
+sudo dscl . -create /Users/$1 UserShell /bin/bash
+sudo dscl . -create /Users/$1 RealName $2
+sudo dscl . -create /Users/$1 UniqueID 1002
+sudo dscl . -create /Users/$1 PrimaryGroupID 80
+sudo dscl . -create /Users/$1 NFSHomeDirectory /Users/$1
+sudo dscl . -passwd /Users/$1 $3
+sudo dscl . -passwd /Users/$1 $3
+sudo createhomedir -c -u $1 > /dev/null
 
 # Enable the built-in VNC server 
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
