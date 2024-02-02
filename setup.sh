@@ -5,7 +5,7 @@
 sudo dscl . -create /Users/serverrunner
 sudo dscl . -create /Users/serverrunner UserShell /bin/bash
 sudo dscl . -create /Users/serverrunner RealName "serverrunner"
-sudo dscl . -create /Users/serverrrunner UniqueID 1001
+sudo dscl . -create /Users/serverrunner UniqueID 1001
 sudo dscl . -create /Users/serverrunner PrimaryGroupID 80
 sudo dscl . -create /Users/serverrunner NFSHomeDirectory /Users/serverrunner
 sudo dscl . -passwd /Users/serverrunner rdpserver
