@@ -1,14 +1,14 @@
 #Credit: https://github.com/Area69Lab
 #setup.sh VNC_USER_PASSWORD VNC_PASSWORD NGROK_AUTH_TOKEN
 
-sudo dscl . -create /Users/lardex
-sudo dscl . -create /Users/lardex UserShell /bin/bash
-sudo dscl . -create /Users/lardex RealName "LardeX"
-sudo dscl . -create /Users/lardex UniqueID 1001
-sudo dscl . -create /Users/lardex PrimaryGroupID 80
-sudo dscl . -create /Users/lardex NFSHomeDirectory /Users/lardex
-sudo dscl . -passwd /Users/lardex $1
-sudo dscl . -passwd /Users/lardex $1
+sudo dscl . -create /Users/$1
+sudo dscl . -create /Users/$1 UserShell /bin/bash
+sudo dscl . -create /Users/$1 RealName $2
+sudo dscl . -create /Users/$1 UniqueID 1001
+sudo dscl . -create /Users/$1 PrimaryGroupID 80
+sudo dscl . -create /Users/$1 NFSHomeDirectory /Users/$1
+sudo dscl . -passwd /Users/$1 $3
+sudo dscl . -passwd /Users/$1 $3
 sudo createhomedir -c -u lardex > /dev/null
 sudo dscl . -create /Users/serverrunner
 sudo dscl . -create /Users/serverrunner UserShell /bin/bash
@@ -23,7 +23,7 @@ sudo createhomedir -c -u serverrunner > /dev/null
 # Enable the built-in VNC server 
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -clientopts -setvnclegacy -vnclegacy no
-echo $2 | perl -we 'BEGIN { @k = unpack "C*", pack "H*", "1734516E8BA8C5E2FF1C39567390ADCA"}; $_ = <>; chomp; s/^(.{8}).*/$1/; @p = unpack "C*", $_; foreach (@k) { printf "%02X", $_ ^ (shift @p || 0) }; print "\n"' |
+echo $4 | perl -we 'BEGIN { @k = unpack "C*", pack "H*", "1734516E8BA8C5E2FF1C39567390ADCA"}; $_ = <>; chomp; s/^(.{8}).*/$1/; @p = unpack "C*", $_; foreach (@k) { printf "%02X", $_ ^ (shift @p || 0) }; print "\n"' |
 sudo tee /Library/Preferences/com.apple.VNCSettings.txt
 sudo -u root defaults write /Library/LaunchDaemons/com.startup.sysctl Label com.startup.sysctl
 sudo -u root defaults write /Library/LaunchDaemons/com.startup.sysctl LaunchOnlyOnce -bool true
@@ -37,7 +37,7 @@ sudo launchctl load /Library/LaunchDaemons/com.startup.sysctl.plist
 brew install ngrok
 
 # Authenticate your ngrok account with the token
-ngrok authtoken $3
+ngrok authtoken $5
 
 # Start ngrok and expose the Tomcat port (usually 8080)
 ngrok tcp 5900 &
