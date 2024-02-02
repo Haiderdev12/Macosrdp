@@ -14,22 +14,26 @@ sudo dscl . -passwd /Users/lardex $1
 sudo dscl . -passwd /Users/lardex $1
 sudo createhomedir -c -u lardex > /dev/null 
 
-# The username of the new user
-new_user="lardex"
+# Define the username
+username="lardex"
 
-# The path to the original com.apple.SetupAssistant.plist file
-original_file="/Users/$new_user/Library/Preferences/com.apple.SetupAssistant.plist"
+# Define the plist file path
+plist_path="/Users/$username/Library/Preferences/com.apple.SetupAssistant.plist"
 
-# The path to the new user's Preferences directory
-new_user_dir="/Users/$new_user/Library/Preferences/"
-
-# Copy the file using sudo
-sudo cp $original_file $new_user_dir
+# Check if the user directory exists
+if [ -d "/Users/$username" ]; then
+    # Write to the plist file
+    defaults write $plist_path DidSeeCloudSetup -bool TRUE
+    defaults write $plist_path DidSeeSiriSetup -bool TRUE
+    defaults write $plist_path DidSeePrivacy -bool TRUE
+    defaults write $plist_path LastSeenCloudProductVersion "13.6.3"
+    echo "Setup Assistant plist has been created for user $username."
+else
+    echo "User $username does not exist."
+fi
 
 # Set the language to Italian
-sudo -u $new_user defaults write -g AppleLanguages -array "it"
-
-echo "Setup Assistant has been disabled and language has been set to Italian for $new_user."
+sudo -u lardex defaults write -g AppleLanguages -array "it"
 
 # Enable the built-in VNC server 
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -allUsers -privs -all
