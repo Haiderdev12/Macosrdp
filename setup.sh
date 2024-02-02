@@ -2,7 +2,6 @@
 #setup.sh VNC_USER_PASSWORD VNC_PASSWORD NGROK_AUTH_TOKEN
 
 # Disable Spotlight
-cd /
 sudo mdutil -i off -a
 
 sudo dscl . -create /Users/lardex
