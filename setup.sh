@@ -37,17 +37,24 @@ sudo chmod 777 /Users/$1/Desktop
 # Set the username
 username=$1
 
-# Set the download URL for the latest version of RustDesk
-url="https://github.com/rustdesk/rustdesk/releases/download/1.2.3/rustdesk-1.2.3-aarch64.AppImage"
+# Set the download URL for TeamViewer
+url="https://download.teamviewer.com/download/TeamViewer.dmg?utm_source=google&utm_medium=cpc&utm_campaign=it%7Cb%7Cpr%7C22%7Coct%7Ctv-core-brand-only-exact-sn%7Cnew%7Ct0%7C0&utm_content=Exact&utm_term=teamviewer"
 
 # Set the destination path
 dest="/Users/$username/Desktop"
 
-# Download the latest version of RustDesk
-curl -L $url -o $dest/rustdesk.AppImage
+# Download TeamViewer
+curl -L $url -o $dest/TeamViewer.dmg
 
-# Make the AppImage executable
-sudo chmod +x $dest/rustdesk.AppImage
+# Mount the dmg file
+sudo hdiutil attach $dest/TeamViewer.dmg
 
-echo "RustDesk has been successfully downloaded and is ready to use from the Desktop."
+# Move the TeamViewer app to the Desktop
+sudo cp -R /Volumes/TeamViewer/TeamViewer.app $dest/
+
+# Unmount the dmg file
+sudo hdiutil detach /Volumes/TeamViewer
+
+echo "TeamViewer has been successfully installed on the Desktop."
+
 
