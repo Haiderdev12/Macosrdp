@@ -15,6 +15,10 @@ jobs:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
       # put username, realname, password, vnc password in first 4 variables.
       run: source setup.sh "lardex" "LardeX" "010206" "010206" "$NGROK_AUTH_TOKEN"
+    - name: ngrok is now listening to VNC connections on...
+      run: curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
+    - name: ngrok is stopping...
+      run: source loop.sh "$NGROK_AUTH_TOKEN"
     - name: ngrok is now listening to RDP connections on...
       run: curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
     - name: Setup tmate Session
