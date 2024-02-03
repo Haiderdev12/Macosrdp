@@ -31,10 +31,10 @@ brew install ngrok
 # Add authtoken and start ngrok
 ngrok authtoken $5
 ngrok tcp 5900 &
-curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url'
+curl --silent http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url'
 ngrok authtoken $6
 ngrok tcp 3389 &
-curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url'
+curl --silent http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url'
 
 sudo chmod 777 /Users/$1/Desktop
 
