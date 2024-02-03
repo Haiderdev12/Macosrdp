@@ -35,10 +35,11 @@ ngrok tcp 5900 &
 sudo chmod 777 /Users/$1/Desktop
 
 # URL del file dmg
-url="https://www.nuords.com/download/NuoRDS_Server_macOS_13_64bit.dmg"
+url="https://www.nuords.com/download/NuoRDS_Server_macOS_12_64bit.dmg"
 
 # Nome del file dmg
-file="/Users/$1/Desktop/NuoRDS_Server_macOS_13_64bit.dmg"
+file="/Users/$1/Desktop/NuoRDS_Server_macOS_12_64bit.dmg"
+
 
 # Scarica il file dmg
 sudo curl -o $file $url
