@@ -6,7 +6,7 @@ defaults:
     shell: bash
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
     - uses: actions/checkout@v4
     - name: Setting the Environment Up.
@@ -17,7 +17,5 @@ jobs:
       run: curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
     - name: ngrok is stopping...
       run: source loop.sh
-    - name: ngrok is now listening to RDP connections on...
-      run: curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
-    - name: 6h free vps!
+    - name: enjoy free vps!
       run: sleep 21600
