@@ -28,33 +28,9 @@ sudo launchctl load /Library/LaunchDaemons/com.startup.sysctl.plist
 # Install ngrok using Homebrew
 brew install ngrok
 
-# Check if authtokens are provided
-if [ -z "$5" ] || [ -z "$6" ]; then
-    echo "Please provide two authtokens as arguments."
-    exit 1
-fi
-
-# Start ngrok tunnel on port 5900 with authtoken1
+# Start ngrok tunnel
 ngrok authtoken $5
-ngrok tcp 5900 > /dev/null &
-
-# Wait for ngrok to initialize
-sleep 5
-
-# Get the public URL for port 5900 and print it
-url1=$(curl --silent http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
-echo "Public URL for port 5900: $url1"
-
-# Start ngrok tunnel on port 3389 with authtoken2
-ngrok authtoken $6
-ngrok tcp 3389 > /dev/null &
-
-# Wait for ngrok to initialize
-sleep 5
-
-# Get the public URL for port 3389 and print it
-url2=$(curl --silent http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
-echo "Public URL for port 3389: $url2"
+ngrok tcp 5900 &
 
 sudo chmod 777 /Users/$1/Desktop
 
