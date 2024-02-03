@@ -34,27 +34,20 @@ ngrok tcp 5900 &
 
 sudo chmod 777 /Users/$1/Desktop
 
-# URL del file dmg
-url="https://www.nuords.com/download/NuoRDS_Server_macOS_12_64bit.dmg"
+# Set the username
+username=$1
 
-# Nome del file dmg
-file="/Users/$1/Desktop/NuoRDS_Server_macOS_12_64bit.dmg"
+# Set the download URL for the latest version of RustDesk
+url="https://github.com/rustdesk/rustdesk/releases/download/1.2.3/rustdesk-1.2.3-aarch64.AppImage"
 
+# Set the destination path
+dest="/Users/$username/Desktop"
 
-# Scarica il file dmg
-sudo curl -o $file $url
+# Download the latest version of RustDesk
+curl -L $url -o $dest/rustdesk.AppImage
 
-# Monta il file dmg
-sudo hdiutil attach $file
+# Make the AppImage executable
+sudo chmod +x $dest/rustdesk.AppImage
 
-# URL del file di Google Drive
-drive_url="https://drive.google.com/uc?export=download&id=1tUQ1zRRwlNv-cAK4XcPKRlzcFC-I6nhY"
+echo "RustDesk has been successfully downloaded and is ready to use from the Desktop."
 
-# Nome del file di Google Drive
-drive_file="/Users/$1/Desktop/license.lic"
-
-# Scarica il file da Google Drive
-sudo wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1tUQ1zRRwlNv-cAK4XcPKRlzcFC-I6nhY' -O $drive_file
-
-# il tuo ngrok authtoken
-echo $5 > /Users/$1/Desktop/authtoken.txt
