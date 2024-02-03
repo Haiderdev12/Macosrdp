@@ -28,12 +28,12 @@ sudo launchctl load /Library/LaunchDaemons/com.startup.sysctl.plist
 # Install ngrok using Homebrew
 brew install ngrok
 
-# Imposta il tuo token di autenticazione ngrok
-NGROK_AUTH_TOKEN=$5
+# Crea la cartella .ngrok2 nella tua home directory se non esiste già
+mkdir -p ~/.ngrok2
 
-# Crea un file di configurazione ngrok
-sudo cat > ~/.ngrok/ngrok.yml << EOF
-authtoken: $NGROK_AUTH_TOKEN
+# Crea il file di configurazione ngrok.yml nella cartella .ngrok2
+cat > ~/.ngrok2/ngrok.yml << EOF
+authtoken: $5
 tunnels:
   vnc:
     proto: tcp
