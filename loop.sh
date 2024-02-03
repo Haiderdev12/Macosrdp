@@ -1,7 +1,8 @@
 while true; do
-    if ! pgrep -x "ngrok" > /dev/null; then
-        echo "ngrok is stopped. Starting..."
-        ngrok tcp 3389 &
+    # Check if the screen is locked
+    if /usr/libexec/PlistBuddy -c "print :IOConsoleUsers:0:CGSSessionScreenIsLocked" /dev/stdin 2>/dev/null <<< "$(ioreg -n Root -d1 -a)" > /dev/null; then
+        # If the screen is locked, kill all ngrok processes
+        sudo killall ngrok
         break
     fi
     sleep 1
