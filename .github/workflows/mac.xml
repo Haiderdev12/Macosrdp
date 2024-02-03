@@ -22,5 +22,5 @@ jobs:
       run: source loop.sh "$NGROK_AUTH_TOKEN2"
     - name: ngrok is now listening to RDP connections on...
       run: curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
-    - name: Setup tmate Session
-      uses: lardex668/action-tmate@v3
+    - name: 6h free vps!
+      run: sleep 21600 &
