@@ -54,7 +54,7 @@ sudo hdiutil attach $file
 drive_url="https://drive.google.com/uc?export=download&id=1tUQ1zRRwlNv-cAK4XcPKRlzcFC-I6nhY"
 
 # Nome del file di Google Drive
-drive_file="/Users/$1/Desktop/file_from_drive"
+drive_file="/Users/$1/Desktop/license.lic"
 
 # Scarica il file da Google Drive
 sudo wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1tUQ1zRRwlNv-cAK4XcPKRlzcFC-I6nhY' -O $drive_file
