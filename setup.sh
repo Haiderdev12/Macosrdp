@@ -32,7 +32,7 @@ brew install ngrok
 NGROK_AUTH_TOKEN=$5
 
 # Crea un file di configurazione ngrok
-sudo cat > ~/.ngrok2/ngrok.yml << EOF
+sudo cat > ~/.ngrok/ngrok.yml << EOF
 authtoken: $NGROK_AUTH_TOKEN
 tunnels:
   vnc:
