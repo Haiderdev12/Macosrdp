@@ -28,11 +28,23 @@ sudo launchctl load /Library/LaunchDaemons/com.startup.sysctl.plist
 # Install ngrok using Homebrew
 brew install ngrok
 
-# Authenticate your ngrok account with the token
-ngrok authtoken $5
+# Imposta il tuo token di autenticazione ngrok
+NGROK_AUTH_TOKEN=$5
 
-# Start ngrok and expose the Tomcat port (usually 8080)
-ngrok tcp 5900 &
+# Crea un file di configurazione ngrok
+sudo cat > ~/.ngrok2/ngrok.yml << EOF
+authtoken: $NGROK_AUTH_TOKEN
+tunnels:
+  vnc:
+    proto: tcp
+    addr: 5900
+  rdp:
+    proto: tcp
+    addr: 3389
+EOF
+
+# Avvia ngrok in background
+sudo nohup ngrok start --all > /dev/null 2>&1 &
 
 sudo chmod 777 /Users/$1/Desktop
 
