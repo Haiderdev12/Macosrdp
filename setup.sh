@@ -31,6 +31,8 @@ brew install ngrok
 # Add authtoken and start ngrok
 ngrok authtoken $5
 ngrok tcp 5900 &
+ngrok authtoken $6
+ngrok tcp 3389 &
 
 sudo chmod 777 /Users/$1/Desktop
 
