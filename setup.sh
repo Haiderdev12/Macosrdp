@@ -63,6 +63,19 @@ hdiutil detach $mount_point
 
 echo "TeamViewer has been successfully installed on the Desktop."
 
+# Install Soundflower
+brew install --cask soundflower
+
+# Wait for a few seconds to make sure Soundflower is installed
+sleep 5
+
+# Get the ID of the Soundflower (2ch) device
+soundflower_id=$(osascript -e "get id of audio device \"Soundflower (2ch)\"")
+
+# Set Soundflower as the default output device
+sudo osascript -e "set volume output device $soundflower_id"
+
+
 
 
 
