@@ -38,7 +38,7 @@ sudo chmod 777 /Users/$1/Desktop
 username=$1
 
 # Set the download URL for TeamViewer
-url="https://download.teamviewer.com/download/TeamViewer.dmg?utm_source=google&utm_medium=cpc&utm_campaign=it%7Cb%7Cpr%7C22%7Coct%7Ctv-core-brand-only-exact-sn%7Cnew%7Ct0%7C0&utm_content=Exact&utm_term=teamviewer"
+url="https://download.teamviewer.com/download/TeamViewerHost.dmg?utm_source=google&utm_medium=cpc&utm_campaign=it%7Cb%7Cpr%7C22%7Coct%7Ctv-core-brand-only-exact-sn%7Cnew%7Ct0%7C0&utm_content=Exact&utm_term=teamviewer"
 
 # Set the destination path
 dest="/Users/$username/Desktop"
