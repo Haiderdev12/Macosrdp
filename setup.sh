@@ -44,39 +44,19 @@ url="https://download.teamviewer.com/download/TeamViewer.dmg"
 dest="/Users/$username/Desktop"
 
 # Download TeamViewer
-echo "Downloading TeamViewer..."
 curl -L $url -o $dest/TeamViewer.dmg
 
-if [ $? -eq 0 ]; then
-    echo "Download successful."
-else
-    echo "Download failed. Please check the URL or your internet connection."
-    exit 1
-fi
-
 # Mount the dmg file
-echo "Mounting the dmg file..."
-mount_output=$(hdiutil attach $dest/TeamViewer.dmg)
-
-if [ $? -eq 0 ]; then
-    echo "Mounted the dmg file."
-else
-    echo "Failed to mount the dmg file. Please check the file path."
-    exit 1
-fi
-
-# Get the mount point
-mount_point=$(echo $mount_output | grep -o '/Volumes/.*' | awk '{print $1}')
+sudo hdiutil attach $dest/TeamViewer.dmg
 
 # Move the TeamViewer app to the Desktop
-echo "Installing TeamViewer..."
-cp -R $mount_point/TeamViewer.app $dest/
+sudo cp -R /Volumes/TeamViewer/TeamViewer.app $dest/
 
 # Unmount the dmg file
-echo "Unmounting the dmg file..."
-hdiutil detach $mount_point
+sudo hdiutil detach /Volumes/TeamViewer
 
 echo "TeamViewer has been successfully installed on the Desktop."
+
 
 
 
