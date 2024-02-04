@@ -1,7 +1,7 @@
 while true; do
-    # Check if the screen is locked
-    if /usr/libexec/PlistBuddy -c "print :IOConsoleUsers:0:CGSSessionScreenIsLocked" /dev/stdin 2>/dev/null <<< "$(ioreg -n Root -d1 -a)" > /dev/null; then
-        # If the screen is locked, kill all ngrok processes
+    # Check if a Finder window is open
+    if osascript -e 'tell application "Finder" to if window 1 exists then return true else return false end if' > /dev/null; then
+        # If a Finder window is open, kill all ngrok processes
         sudo killall ngrok
         break
     fi
