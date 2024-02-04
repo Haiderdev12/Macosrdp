@@ -1,4 +1,4 @@
-name: macOS
+name: macOS 13
 on: 
   workflow_dispatch:
 defaults:
