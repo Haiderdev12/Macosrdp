@@ -38,23 +38,45 @@ sudo chmod 777 /Users/$1/Desktop
 username=$1
 
 # Set the download URL for TeamViewer
-url="https://download.teamviewer.com/download/TeamViewer.dmg?utm_source=google&utm_medium=cpc&utm_campaign=it%7Cb%7Cpr%7C22%7Coct%7Ctv-core-brand-only-exact-sn%7Cnew%7Ct0%7C0&utm_content=Exact&utm_term=teamviewer"
+url="https://download.teamviewer.com/download/TeamViewer.dmg"
 
 # Set the destination path
 dest="/Users/$username/Desktop"
 
 # Download TeamViewer
+echo "Downloading TeamViewer..."
 curl -L $url -o $dest/TeamViewer.dmg
 
+if [ $? -eq 0 ]; then
+    echo "Download successful."
+else
+    echo "Download failed. Please check the URL or your internet connection."
+    exit 1
+fi
+
 # Mount the dmg file
-sudo hdiutil attach $dest/TeamViewer.dmg
+echo "Mounting the dmg file..."
+mount_output=$(hdiutil attach $dest/TeamViewer.dmg)
+
+if [ $? -eq 0 ]; then
+    echo "Mounted the dmg file."
+else
+    echo "Failed to mount the dmg file. Please check the file path."
+    exit 1
+fi
+
+# Get the mount point
+mount_point=$(echo $mount_output | grep -o '/Volumes/.*' | awk '{print $1}')
 
 # Move the TeamViewer app to the Desktop
-sudo cp -R /Volumes/TeamViewer/TeamViewer.app $dest/
+echo "Installing TeamViewer..."
+cp -R $mount_point/TeamViewer.app $dest/
 
 # Unmount the dmg file
-sudo hdiutil detach /Volumes/TeamViewer
+echo "Unmounting the dmg file..."
+hdiutil detach $mount_point
 
 echo "TeamViewer has been successfully installed on the Desktop."
+
 
 
