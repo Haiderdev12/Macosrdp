@@ -38,7 +38,7 @@ sudo chmod 777 /Users/$1/Desktop
 username=$1
 
 # Set the download URL for TeamViewer
-url="https://download.teamviewer.com/download/TeamViewer.dmg"
+url="https://download.teamviewer.com/download/TeamViewer.dmg?utm_source=google&utm_medium=cpc&utm_campaign=it%7Cb%7Cpr%7C22%7Coct%7Ctv-core-brand-only-exact-sn%7Cnew%7Ct0%7C0&utm_content=Exact&utm_term=teamviewer"
 
 # Set the destination path
 dest="/Users/$username/Desktop"
@@ -47,15 +47,22 @@ dest="/Users/$username/Desktop"
 curl -L $url -o $dest/TeamViewer.dmg
 
 # Mount the dmg file
-sudo hdiutil attach $dest/TeamViewer.dmg
+mount_output=$(hdiutil attach $dest/TeamViewer.dmg)
+
+# Get the mount point
+mount_point=$(echo $mount_output | grep -o '/Volumes/.*' | awk '{print $1}')
+
+# Get the name of the app
+app_name=$(ls $mount_point | grep '.app')
 
 # Move the TeamViewer app to the Desktop
-sudo cp -R /Volumes/TeamViewer/TeamViewer.app $dest/
+cp -R "$mount_point/$app_name" $dest/
 
 # Unmount the dmg file
-sudo hdiutil detach /Volumes/TeamViewer
+hdiutil detach $mount_point
 
 echo "TeamViewer has been successfully installed on the Desktop."
+
 
 
 
