@@ -63,6 +63,16 @@ hdiutil detach $mount_point
 
 echo "TeamViewer has been successfully installed on the Desktop."
 
+# Path to Terminal.app
+terminal_path="/Applications/Utilities/Terminal.app"
+
+# Add Terminal to the Dock
+sudo defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>$terminal_path</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+
+# Restart the Dock
+sudo killall Dock
+
+
 
 
 
