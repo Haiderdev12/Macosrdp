@@ -5,27 +5,25 @@ username=$1
 url="https://download.teamviewer.com/download/TeamViewerHost.dmg?utm_source=google&utm_medium=cpc&utm_campaign=it%7Cb%7Cpr%7C22%7Coct%7Ctv-core-brand-only-exact-sn%7Cnew%7Ct0%7C0&utm_content=Exact&utm_term=teamviewer"
 
 # Set the destination path
-dest="/Users/$username/Desktop"
+ dest="/Users/$username/Desktop"
+curl -L $url -o $dest/TeamViewer.dmg
 
-# Download TeamViewer
-sudo curl -L $url -o $dest/TeamViewerHost.dmg
+ # Mount the dmg file
+ mount_output=$(hdiutil attach $dest/TeamViewer.dmg)
 
-# Mount the dmg file
-mount_output=$(sudo hdiutil attach $dest/TeamViewer.dmg)
+ # Get the mount point
+ mount_point=$(echo $mount_output | grep -o '/Volumes/.*' | awk '{print $1}')
 
-# Get the mount point
-mount_point=$(echo $mount_output | grep -o '/Volumes/.*' | awk '{print $1}')
+ # Get the name of the app
+ app_name=$(ls $mount_point | grep '.app')
 
-# Get the name of the app
-app_name=$(ls $mount_point | grep '.app')
-
-# Move the TeamViewer app to the Desktop
-sudo cp -R "$mount_point/$app_name" $dest/
+ # Move the TeamViewer app to the Desktop
+ cp -R "$mount_point/$app_name" $dest/
 
 # Unmount the dmg file
-sudo hdiutil detach $mount_point
-
-echo "TeamViewer has been successfully installed on the Desktop."
+hdiutil detach $mount_point
+ 
+ echo "TeamViewer has been successfully installed on the Desktop."
 
 sudo echo '#!/bin/bash
 
