@@ -1,4 +1,4 @@
-name: macOS 13 (beta)
+name: macOS 13 (latest)
 on: 
   workflow_dispatch:
 defaults:
