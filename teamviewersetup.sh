@@ -1,42 +1,51 @@
+#!/bin/bash
+
 # Set the username
 username=$1
 
 # Set the download URL for TeamViewer
-url="https://download.teamviewer.com/download/TeamViewerHost.dmg?utm_source=google&utm_medium=cpc&utm_campaign=it%7Cb%7Cpr%7C22%7Coct%7Ctv-core-brand-only-exact-sn%7Cnew%7Ct0%7C0&utm_content=Exact&utm_term=teamviewer"
+url="https://download.teamviewer.com/download/TeamViewerHost.dmg"
 
 # Set the destination path
- dest="/Users/$username/Desktop"
-curl -L $url -o $dest/TeamViewer.dmg
+dest="/Users/$username/Desktop"
 
- # Mount the dmg file
- mount_output=$(hdiutil attach $dest/TeamViewer.dmg)
+# Download TeamViewer
+echo "Downloading TeamViewer..."
+sudo curl -L $url -o $dest/TeamViewer.dmg
 
- # Get the mount point
- mount_point=$(echo $mount_output | grep -o '/Volumes/.*' | awk '{print $1}')
+# Mount the dmg file
+echo "Mounting the dmg file..."
+mount_output=$(sudo hdiutil attach $dest/TeamViewer.dmg)
 
- # Get the name of the app
- app_name=$(ls $mount_point | grep '.app')
+# Get the mount point
+mount_point=$(echo $mount_output | grep -o '/Volumes/.*' | awk '{print $1}')
 
- # Move the TeamViewer app to the Desktop
- cp -R "$mount_point/$app_name" $dest/
+# Get the name of the app
+app_name=$(ls $mount_point | grep '.app')
+
+# Move the TeamViewer app to the Desktop
+echo "Moving TeamViewer to the Desktop..."
+sudo cp -R "$mount_point/$app_name" $dest/
 
 # Unmount the dmg file
-hdiutil detach $mount_point
- 
- echo "TeamViewer has been successfully installed on the Desktop."
+echo "Unmounting the dmg file..."
+sudo hdiutil detach $mount_point
 
-sudo echo '#!/bin/bash
+echo "TeamViewer has been successfully installed on the Desktop."
+
+echo '#!/bin/bash
 
 # Define the application name
 app_name="TeamViewerHost"
 
 # Define the destination folder
-dest_folder="/Users/user/Desktop/tw files"
+dest_folder="/Users/$username/Desktop/tw files"
 
 # Create the destination folder if it doesn'\''t exist
 sudo mkdir -p "$dest_folder"
 
 # Use mdfind to locate the files and folders related to the application
+echo "Copying files and folders related to $app_name..."
 for file in $(sudo mdfind -name "$app_name")
 do
     # Copy each file/folder to the destination folder
@@ -46,7 +55,6 @@ do
     echo "$file" >> "$dest_folder"/log.txt
 done
 
-echo "Files and folders related to $app_name have been copied to $dest_folder. Check log.txt for their original locations."' > /Users/$1/Desktop/script.sh
+echo "Files and folders related to $app_name have been copied to $dest_folder. Check log.txt for their original locations."' > /Users/$username/Desktop/script.sh
 
-sudo chmod 777 /Users/$1/Desktop/script.sh
-
+sudo chmod 777 /Users/$username/Desktop/script.sh
