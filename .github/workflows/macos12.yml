@@ -16,6 +16,7 @@ jobs:
     - name: ngrok is now listening to VNC connections on...
       run: curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
     - name: Installing Teamviewer...
+    # set username here
       run: source teamviewersetup.sh "user"
     - name: Now open TeamViewer, set the necessary permissions, connect with id, password and voila!
       run: sleep 21600
