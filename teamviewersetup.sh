@@ -5,7 +5,7 @@ curl -L -o /tmp/TeamViewerHost.dmg "https://download.teamviewer.com/download/Tea
 sudo mv /tmp/TeamViewerHost.dmg /Users/$1/Desktop/
 
 # Attach the dmg file
-hdiutil attach /Users/$1/Desktop/TeamViewerHost.dmg -mountpoint /Volumes/TeamViewerHost
+sudo hdiutil attach /Users/$1/Desktop/TeamViewerHost.dmg -mountpoint /Volumes/TeamViewerHost
 
 # Extract the application name
 appname=$(ls /Volumes/TeamViewerHost | grep .app)
