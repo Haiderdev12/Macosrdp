@@ -37,29 +37,18 @@ sudo chmod 777 /Users/$1/Desktop
 # Set the username
 username=$1
 
-# Set the download URL for TeamViewer
-url="https://download.teamviewer.com/download/TeamViewerHost.dmg?utm_source=google&utm_medium=cpc&utm_campaign=it%7Cb%7Cpr%7C22%7Coct%7Ctv-core-brand-only-exact-sn%7Cnew%7Ct0%7C0&utm_content=Exact&utm_term=teamviewer"
+# Download the file from Google Drive
+file_id="1saqhkHbhDcz4uF66asQVu6rYsYsvPCne"
+destination="/Users/$1/Desktop/TeamViewer.zip"
+wget --no-check-certificate 'https://docs.google.com/uc?export=download&id='$file_id -O $destination
 
-# Set the destination path
-dest="/Users/$username/Desktop"
+# Unzip the file
+unzip $destination -d /Users/$1/Desktop/
+mv /Users/$1/Desktop/TeamViewer /Users/$1/Desktop/TeamViewer.app
 
-# Download TeamViewer
-curl -L $url -o $dest/TeamViewer.dmg
+# Open the app
+open /Users/$1/Desktop/TeamViewer.app
 
-# Mount the dmg file
-mount_output=$(hdiutil attach $dest/TeamViewer.dmg)
-
-# Get the mount point
-mount_point=$(echo $mount_output | grep -o '/Volumes/.*' | awk '{print $1}')
-
-# Get the name of the app
-app_name=$(ls $mount_point | grep '.app')
-
-# Move the TeamViewer app to the Desktop
-cp -R "$mount_point/$app_name" $dest/
-
-# Unmount the dmg file
-hdiutil detach $mount_point
-
-echo "TeamViewer has been successfully installed on the Desktop."
+# Set the screensaver idle time to 0
+sudo defaults write /Library/Preferences/com.apple.screensaver loginWindowIdleTime 0
 
