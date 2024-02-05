@@ -9,8 +9,3 @@ sudo wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=
 # Set the screensaver idle time to 0
 sudo defaults write /Library/Preferences/com.apple.screensaver loginWindowIdleTime 0
 
-# Unzip the downloaded file
-sudo unzip /Users/$username/Desktop/TeamViewer.app.zip -d /Users/$username/Desktop/
-
-# Remove the zip file
-sudo rm /Users/$username/Desktop/TeamViewer.app.zip
