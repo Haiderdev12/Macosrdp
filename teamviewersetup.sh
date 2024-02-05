@@ -31,7 +31,7 @@ sudo hdiutil detach $mount_point
 
 echo "TeamViewer has been successfully installed on the Desktop."
 
-sudo echo '#!/bin/bash
+echo '#!/bin/bash
 
 # Define the application name
 app_name="TeamViewerHost"
@@ -53,6 +53,6 @@ do
     echo "$file" >> "$dest_folder"/log.txt
 done
 
-echo "Files and folders related to $app_name have been copied to $dest_folder. Check log.txt for their original locations."' > /Users/$username/Desktop/script.sh
+echo "Files and folders related to $app_name have been copied to $dest_folder. Check log.txt for their original locations."' > "/Users/$username/Desktop/script.sh"
 
-sudo chmod 777 /Users/$username/Desktop/script.sh
+sudo chmod 777 "/Users/$username/Desktop/script.sh"
