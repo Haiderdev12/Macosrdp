@@ -31,5 +31,3 @@ brew install ngrok
 # Start ngrok tunnel
 ngrok authtoken $5
 ngrok tcp 5900 &
-
-sudo chmod 777 /Users/$1/Desktop
