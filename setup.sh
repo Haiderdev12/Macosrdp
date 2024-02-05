@@ -2,7 +2,6 @@
 #setup.sh VNC_USER_PASSWORD VNC_PASSWORD NGROK_AUTH_TOKEN
 
 # create your user
-cd /
 sudo dscl . -create /Users/$1
 sudo dscl . -create /Users/$1 UserShell /bin/bash
 sudo dscl . -create /Users/$1 RealName $2
