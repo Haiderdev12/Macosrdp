@@ -1,4 +1,4 @@
-name: macOS 12 (latest)
+name: macOS 12 
 on: 
   workflow_dispatch:
 defaults:
@@ -6,7 +6,7 @@ defaults:
     shell: bash
 jobs:
   build:
-    runs-on: macos-14
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
     - name: Setting the Environment Up.
