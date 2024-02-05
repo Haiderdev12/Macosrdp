@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Set the username
 username=$1
 
