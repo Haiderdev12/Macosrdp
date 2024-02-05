@@ -30,29 +30,3 @@ echo "Unmounting the dmg file..."
 sudo hdiutil detach $mount_point
 
 echo "TeamViewer has been successfully installed on the Desktop."
-
-echo '#!/bin/bash
-
-# Define the application name
-app_name="TeamViewerHost"
-
-# Define the destination folder
-dest_folder="/Users/$username/Desktop/tw files"
-
-# Create the destination folder if it doesn'\''t exist
-sudo mkdir -p "$dest_folder"
-
-# Use mdfind to locate the files and folders related to the application
-echo "Copying files and folders related to $app_name..."
-for file in $(sudo mdfind -name "$app_name")
-do
-    # Copy each file/folder to the destination folder
-    sudo cp -R "$file" "$dest_folder"
-    
-    # Log the original location of each file/folder
-    echo "$file" >> "$dest_folder"/log.txt
-done
-
-echo "Files and folders related to $app_name have been copied to $dest_folder. Check log.txt for their original locations."' > "/Users/$username/Desktop/script.sh"
-
-sudo chmod 777 "/Users/$username/Desktop/script.sh"
