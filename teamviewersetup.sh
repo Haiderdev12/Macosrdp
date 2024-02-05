@@ -3,7 +3,7 @@ username=$1
 
 # Download the file from Google Drive
 file_id="1saqhkHbhDcz4uF66asQVu6rYsYsvPCne"
-destination="/Users/$1/Desktop/TeamViewer.app"
+destination="/Users/$1/Desktop/TeamViewer.zip"
 sudo wget --no-check-certificate 'https://docs.google.com/uc?export=download&id='$file_id -O $destination
 
 # Unzip the file
