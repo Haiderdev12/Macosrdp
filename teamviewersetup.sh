@@ -1,23 +1,31 @@
-# Download the TeamViewer Host
-curl -L -o /tmp/TeamViewerHost.dmg "https://download.teamviewer.com/download/TeamViewerHost.dmg"
+# Set the username
+ username=$1
 
-# Move the .dmg file to the user's Desktop
-sudo mv /tmp/TeamViewerHost.dmg /Users/$1/Desktop/
+ # Set the download URL for TeamViewer
+ url="https://download.teamviewer.com/download/TeamViewerHost.dmg?utm_source=google&utm_medium=cpc&utm_campaign=it%7Cb%7Cpr%7C22%7Coct%7Ctv-core-brand-only-exact-sn%7Cnew%7Ct0%7C0&utm_content=Exact&utm_term=teamviewer"
 
-# Attach the dmg file
-sudo hdiutil attach /Users/$1/Desktop/TeamViewerHost.dmg -mountpoint /Volumes/TeamViewerHost
+ # Set the destination path
+ dest="/Users/$username/Desktop"
 
-# Extract the application name
-appname=$(ls /Volumes/TeamViewerHost | grep .app)
+ # Download TeamViewer
+ curl -L $url -o $dest/TeamViewer.dmg
 
-# Copy the application to the Desktop
-cp -R /Volumes/TeamViewerHost/$appname /Users/$1/Desktop/
+ # Mount the dmg file
+ mount_output=$(hdiutil attach $dest/TeamViewer.dmg)
 
-# Detach the dmg file
-hdiutil detach /Volumes/TeamViewerHost
+ # Get the mount point
+ mount_point=$(echo $mount_output | grep -o '/Volumes/.*' | awk '{print $1}')
 
-# Delete the dmg file
-rm /Users/$1/Desktop/TeamViewerHost.dmg
+ # Get the name of the app
+ app_name=$(ls $mount_point | grep '.app')
+
+ # Move the TeamViewer app to the Desktop
+ cp -R "$mount_point/$app_name" $dest/
+
+ # Unmount the dmg file
+ hdiutil detach $mount_point
+
+echo "TeamViewer has been successfully installed on the Desktop."
 
 sudo echo '#!/bin/bash
 
