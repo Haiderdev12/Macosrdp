@@ -33,7 +33,7 @@ sudo hdiutil detach $mount_point
 
 echo "TeamViewer has been successfully installed on the Desktop."
 
-echo '#!/bin/bash
+sudo echo '#!/bin/bash
 
 # Define the application name
 app_name="TeamViewerHost"
