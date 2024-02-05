@@ -1,11 +1,17 @@
 # Set the username
 username=$1
 
-# Download the file from Google Drive
-file_id="1saqhkHbhDcz4uF66asQVu6rYsYsvPCne"
-destination="/Users/$username/Desktop/TeamViewerHost.app"
-sudo cd /Users/$username/Desktop/
-sudo wget --no-check-certificate 'https://docs.google.com/uc?export=download&id='$file_id $destination
+# Download the TeamViewer Host
+curl -L -o /tmp/TeamViewerHost.dmg "https://download.teamviewer.com/download/TeamViewerHost.dmg"
 
-# Set the screensaver idle time to 0
-sudo defaults write h/Library/Preferences/com.apple.screensaver loginWindowIdleTime 0
+# Mount the disk image
+hdiutil attach /tmp/TeamViewerHost.dmg
+
+# Install the pkg
+sudo installer -pkg /Volumes/TeamViewerHost/Install\ TeamViewerHost.pkg -target /
+
+# Unmount the disk image
+hdiutil detach /Volumes/TeamViewerHost
+
+# Move the application to the user's Desktop
+mv /Applications/TeamViewerHost.app /Users/$username/Desktop/
