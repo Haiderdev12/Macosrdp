@@ -15,6 +15,5 @@ URL="https://drive.google.com/uc?export=download&id=${FILE_ID}"
 # Use curl to download
 sudo curl -L -o "${DEST_PATH}" "${URL}"
 
-
 sudo defaults write /Library/Preferences/com.apple.screensaver loginWindowIdleTime 0 
 
