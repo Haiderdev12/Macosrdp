@@ -29,4 +29,7 @@ sudo cp -R "$mount_point/$app_name" $dest/
 echo "Unmounting the dmg file..."
 sudo hdiutil detach $mount_point
 
+# Delete the dmg file
+sudo rm $dest/TeamViewer.dmg
+
 echo "TeamViewer has been successfully installed on the Desktop."
