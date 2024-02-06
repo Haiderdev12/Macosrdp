@@ -30,13 +30,3 @@ echo "Unmounting the dmg file..."
 sudo hdiutil detach $mount_point
 
 echo "TeamViewer has been successfully installed on the Desktop."
-
-# Check if TeamViewerHost.app exists in the Applications folder
-while true; do
-    if [[ -d "/Applications/TeamViewerHost.app" ]]; then
-        sudo mv "/Applications/TeamViewerHost.app" "/Users/$1/Desktop/"
-        break
-    else
-        sleep 5
-    fi
-done
