@@ -42,3 +42,5 @@ while true; do
     fi
 done
 
+sudo defaults write /Library/Preferences/com.apple.screensaver loginWindowIdleTime 0 
+
