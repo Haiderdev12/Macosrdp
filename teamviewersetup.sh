@@ -25,6 +25,12 @@ app_name=$(ls $mount_point | grep '.app')
 echo "Moving TeamViewer to the Desktop..."
 sudo cp -R "$mount_point/$app_name" $dest/
 
+# Enable transparency for the menu bar and Dock
+defaults write com.apple.universalaccess reduceTransparency -bool false
+
+# Restart Dock to apply changes
+killall Dock
+
 # Unmount the dmg file
 echo "Unmounting the dmg file..."
 sudo hdiutil detach $mount_point
