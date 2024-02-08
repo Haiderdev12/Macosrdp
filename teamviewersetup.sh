@@ -33,5 +33,3 @@ sudo hdiutil detach $mount_point
 sudo rm $dest/TeamViewer.dmg
 
 echo "TeamViewer has been successfully installed on the Desktop."
-
-sudo defaults write /Library/Preferences/com.apple.screensaver loginWindowIdleTime 0 
